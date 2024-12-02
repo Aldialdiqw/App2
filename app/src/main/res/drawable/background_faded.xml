@@ -1,0 +1,5 @@
+<!-- res/drawable/background_faded.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#88000000" /> <!-- Faded black color -->
+    <corners android:radius="8dp" /> <!-- Optional: rounded corners -->
+</shape>
