@@ -13,6 +13,13 @@
     <color name="papaya_whip">#FFEFD5</color>
     <color name="blanched_almond">#FFEBCD</color>
     <color name="misty_rose">#FFE4E1</color>
+
+        <color name="purple_100">#F3E5F5</color>
+        <color name="purple_200">#E1BEE7</color>
+        <color name="purple_500">#9C27B0</color>
+        <color name="purple_600">#8E24AA</color>
+        <color name="purple_800">#6A1B9A</color>
+
     <color name="bisque">#FFE4C4</color>
     <color name="moccasin">#FFE4B5</color>
     <color name="navajo_white">#FFDEAD</color>
