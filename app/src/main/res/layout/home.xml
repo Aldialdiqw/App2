@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:fitsSystemWindows="true"
+    android:background="?android:attr/windowBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -19,20 +20,18 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="4dp"
             android:text="Data Manager"
-            android:textColor="@color/purple_800"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardWallet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            app:cardBackgroundColor="@color/purple_100"
+            app:cardBackgroundColor="?attr/colorSurface"
             app:cardCornerRadius="16dp"
             app:layout_constraintTop_toBottomOf="@id/tvTitle">
 
@@ -46,7 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="My wallet"
-                    android:textColor="@color/purple_800"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
@@ -54,7 +53,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Browse all your items."
-                    android:textColor="@color/purple_600"
+                    android:textColor="?android:attr/textColorSecondary"
                     android:textSize="16sp" />
 
                 <GridLayout
@@ -76,7 +75,7 @@
                             android:layout_height="48dp"
                             android:contentDescription="Credit/debit cards"
                             android:src="@drawable/credit_card"
-                            app:tint="#6B8AE3" />
+                            app:tint="?attr/colorPrimary" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -84,7 +83,7 @@
                             android:layout_marginTop="8dp"
                             android:text="Credit/debit\ncards"
                             android:textAlignment="center"
-                            android:textColor="@color/purple_800"
+                            android:textColor="?android:attr/textColorPrimary"
                             android:textSize="14sp" />
                     </LinearLayout>
 
@@ -101,7 +100,7 @@
                             android:layout_height="48dp"
                             android:contentDescription="Memberships"
                             android:src="@drawable/membership"
-                            app:tint="#E57373" />
+                            app:tint="?attr/colorSecondary" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -109,7 +108,7 @@
                             android:layout_marginTop="8dp"
                             android:text="Memberships"
                             android:textAlignment="center"
-                            android:textColor="@color/purple_800"
+                            android:textColor="?android:attr/textColorPrimary"
                             android:textSize="14sp" />
                     </LinearLayout>
 
@@ -126,7 +125,7 @@
                             android:layout_height="48dp"
                             android:contentDescription="Vouchers"
                             android:src="@drawable/vouchers"
-                            app:tint="#FFB74D" />
+                            app:tint="?attr/colorAccent" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -134,7 +133,7 @@
                             android:layout_marginTop="8dp"
                             android:text="Vouchers"
                             android:textAlignment="center"
-                            android:textColor="@color/purple_800"
+                            android:textColor="?android:attr/textColorPrimary"
                             android:textSize="14sp" />
                     </LinearLayout>
 
@@ -150,9 +149,9 @@
                         <ImageView
                             android:layout_width="48dp"
                             android:layout_height="48dp"
-                            android:contentDescription="Samsung Pass"
+                            android:contentDescription="Pass"
                             android:src="@drawable/password"
-                            app:tint="#64B5F6" />
+                            app:tint="?attr/colorPrimaryVariant" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -160,7 +159,7 @@
                             android:layout_marginTop="8dp"
                             android:text="Passwords"
                             android:textAlignment="center"
-                            android:textColor="@color/purple_800"
+                            android:textColor="?android:attr/textColorPrimary"
                             android:textSize="14sp" />
                     </LinearLayout>
 
@@ -176,9 +175,9 @@
                         <ImageView
                             android:layout_width="48dp"
                             android:layout_height="48dp"
-                            android:contentDescription="Digital keys"
+                            android:contentDescription="Personal id"
                             android:src="@drawable/id_card"
-                            app:tint="#BA68C8" />
+                            app:tint="?attr/colorPrimary" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -186,7 +185,7 @@
                             android:layout_marginTop="8dp"
                             android:text="Personal Ids"
                             android:textAlignment="center"
-                            android:textColor="@color/purple_800"
+                            android:textColor="?android:attr/textColorPrimary"
                             android:textSize="14sp" />
                     </LinearLayout>
 
@@ -202,9 +201,9 @@
                         <ImageView
                             android:layout_width="48dp"
                             android:layout_height="48dp"
-                            android:contentDescription="National ID"
+                            android:contentDescription="Other"
                             android:src="@drawable/other"
-                            app:tint="#4DB6AC" />
+                            app:tint="?attr/colorPrimary" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -212,7 +211,7 @@
                             android:layout_marginTop="8dp"
                             android:text="Other data"
                             android:textAlignment="center"
-                            android:textColor="@color/purple_800"
+                            android:textColor="?android:attr/textColorPrimary"
                             android:textSize="14sp" />
                     </LinearLayout>
                 </GridLayout>
@@ -229,8 +228,7 @@
             app:layout_constraintTop_toBottomOf="@id/cardWallet"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:background="@color/purple_100"
-
+            android:background="?attr/colorSurface"
             android:showDividers="middle">
 
             <!-- 2FA Title -->
@@ -238,7 +236,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Two-Factor Authentication"
-                android:textColor="@color/purple_800"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -248,7 +246,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="Enhance your account security by enabling two-factor authentication."
-                android:textColor="@color/purple_600"
+                android:textColor="?android:attr/textColorSecondary"
                 android:textSize="16sp" />
 
             <!-- Enable 2FA Switch -->
@@ -264,29 +262,17 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Enable 2FA"
-                    android:textColor="@color/purple_800"
-                    android:textSize="18sp" />
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="16sp" />
 
                 <Switch
                     android:id="@+id/switch2FA"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="false"
-                    android:thumbTint="@color/purple_500"
-                    android:trackTint="@color/purple_200"
+                    android:thumbTint="?attr/colorPrimary"
+                    android:trackTint="?attr/colorPrimaryVariant"
                     tools:ignore="UseSwitchCompatOrMaterialXml" />
             </LinearLayout>
-
-            <!-- Setup 2FA Button -->
-            <Button
-                android:id="@+id/btnSetup2FA"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:backgroundTint="@color/purple_600"
-                android:text="Setup 2FA"
-                android:textColor="@android:color/white"
-                android:visibility="visible" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
