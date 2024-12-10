@@ -12,8 +12,8 @@ import java.security.NoSuchAlgorithmException;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "users.db";
-    private static final int DATABASE_VERSION = 2; // Increment version if changes are made
+    private static final String DATABASE_NAME = "user.db";
+    private static final int DATABASE_VERSION = 2;
     public static final String TABLE_NAME = "users";
     public static final String COLUMN_EMAIL = "email";
     public static final String COLUMN_PASSWORD = "password";
@@ -23,17 +23,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
-        // Create table if not already created
-        String CREATE_TABLE_USERS = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "("
-                + COLUMN_EMAIL + " TEXT PRIMARY KEY,"
-                + COLUMN_PASSWORD + " TEXT NOT NULL"
-                + ")";
-        db.execSQL(CREATE_TABLE_USERS);
-        Log.d("DB_LOG", "Tabela 'users' u krijua me sukses.");
-    }
 
-    @Override
+
+        public void onCreate(SQLiteDatabase db) {
+            String CREATE_TABLE_USERS = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "("
+                    + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + COLUMN_EMAIL + " TEXT UNIQUE NOT NULL,"
+                    + COLUMN_PASSWORD + " TEXT NOT NULL"
+                    + ")";
+            db.execSQL(CREATE_TABLE_USERS);
+            Log.d("DB_LOG", "Tabela 'users' u krijua me sukses.");
+        }
+
+
+
+        @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Handle upgrading the database schema if needed
         if (oldVersion < 2) {
@@ -149,9 +153,53 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.d("DB_LOG", "Emaili ekziston: " + exists);
         return exists;
     }
+    public boolean insertCreditCard(String cardholderName, String cardNumber, String expirationDate, String cvv, int userId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("emri", cardholderName);
+        values.put("creditcard_number", cardNumber);
+        values.put("expiration_date", expirationDate);
+        values.put("ccv", cvv);
+        values.put("user_id", userId);
+
+        long result = db.insert("creditcard", null, values);
+        if (result == -1) {
+            Log.e("DB_ERROR", "Dështoi inserimi i kartës së kreditit.");
+            return false;
+        }
+
+        Log.d("DB_LOG", "Inserimi i kartës së kreditit u krye me sukses.");
+        return true;
+    }
+
 
     // Additional helper to log database path
     public static void logDatabasePath(Context context) {
         Log.d("DB_LOG", "Database path: " + context.getDatabasePath(DATABASE_NAME).getAbsolutePath());
     }
+
+    public int getUserId(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query("users", new String[]{"id", "email"}, "email = ?", new String[]{email}, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            int columnIndex = cursor.getColumnIndex("id");
+
+            // Check if the column index is valid
+            if (columnIndex >= 0) {
+                int userId = cursor.getInt(columnIndex);
+                cursor.close();
+                return userId;
+            }
+        }
+
+
+        if (cursor != null) {
+            cursor.close();
+        }
+        return -1;
+    }
+
+
 }
