@@ -1,55 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+
     android:padding="8dp"
-    tools:context=".CreditcardActivity">
+    tools:context=".CreditCardActivity">
 
     <!-- Cardholder Name -->
     <EditText
         android:id="@+id/tv_cardholder_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:hint="Enter Name"
         android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="8dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Card Number -->
     <EditText
         android:id="@+id/tv_card_number"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:hint="Enter Number"
         android:inputType="number"
         android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_cardholder_name"
-        android:layout_margin="8dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_cardholder_name" />
 
     <!-- Horizontal Layout for Expiration Date and CVV -->
     <LinearLayout
         android:id="@+id/ll_expiry_cvv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/tv_card_number"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="8dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_card_number">
 
         <!-- Expiration Date -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <EditText
                 android:id="@+id/tv_expiration_date"
@@ -64,9 +64,9 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_marginStart="8dp"
             android:layout_weight="1"
-            android:layout_marginStart="8dp">
+            android:orientation="vertical">
 
             <EditText
                 android:id="@+id/tv_cvv"
@@ -84,8 +84,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="Save"
-        app:layout_constraintTop_toBottomOf="@id/ll_expiry_cvv"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/ll_expiry_cvv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

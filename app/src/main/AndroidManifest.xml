@@ -58,10 +58,14 @@
         </activity>
 
         <activity
-            android:name=".CreditcardActivity"
+            android:name=".CreditCardDataActivity"
             android:exported="false">
         </activity>
 
+        <activity
+            android:name=".CreditCardActivity"
+            android:exported="false">
+        </activity>
 
 
     </application>

@@ -3,6 +3,7 @@ package com.example.app2;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_page); // This is the layout for your login page
+        setContentView(R.layout.login_page);
 
         // Initialize Database Helper
         dbHelper = new DatabaseHelper(this);
@@ -28,9 +29,8 @@ public class LoginActivity extends AppCompatActivity {
         // Initialize SharedPreferences to manage session
         sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE);
 
-        // Check if the user is already logged in
-        if (sharedPreferences.getBoolean("is_logged_in", false)) {
 
+        if (sharedPreferences.getBoolean("is_logged_in", false)) {
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(intent);
             finish();
@@ -62,22 +62,23 @@ public class LoginActivity extends AppCompatActivity {
                         // If user exists, login successful, go to home page
                         Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
-                        // Retrieve user ID from the database
-                        int userId = dbHelper.getUserId(user); // Assuming you have a method to get the user ID
+
+                        int userId = dbHelper.getUserId(user);
 
                         // Store session data in SharedPreferences
                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putBoolean("is_logged_in", true);  // User is logged in
-                        editor.putString("user_email", user);    // Store email
-                        editor.putInt("user_id", userId);        // Store user ID
+                        editor.putBoolean("is_logged_in", true);
+                        editor.putString("user_email", user);
+                        editor.putInt("user_id", userId);
                         editor.apply();
-
+                        Log.d("LoginActivity", "user: " + user);
                         // Redirect to HomeActivity
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
-                        // If user doesn't exist
+
+
                         Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
                     }
                 } else {
@@ -96,47 +97,48 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        // Here we can log out the user when the app goes to the background (session ends)
-        // You could also clear the session here if needed
+
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        // Optionally, clear session on stop to ensure the user logs out when leaving the app
+
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("is_logged_in", false);
         editor.apply();
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
-        // If the app comes back from the background, check if the user is still logged in
+
         boolean isLoggedIn = sharedPreferences.getBoolean("is_logged_in", false);
+        Log.d("LoginActivity", "isLoggedIn: " + isLoggedIn); // Log the login status
+
         if (isLoggedIn) {
-            // Retrieve the user ID from SharedPreferences
             int userId = sharedPreferences.getInt("user_id", -1);
+            Log.d("LoginActivity", "User ID fetched: " + userId); // Log the user ID
 
             if (userId != -1) {
-                // Proceed to HomeActivity
                 Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                 startActivity(intent);
                 finish();
             } else {
-                // If the user ID is not found, log out the user
                 Toast.makeText(LoginActivity.this, "Session expired", Toast.LENGTH_SHORT).show();
-                // Optionally, log out the user
+
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean("is_logged_in", false);
                 editor.apply();
-                // Redirect to login
+
                 Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
         }
     }
+
 
     // Function to animate UI elements (same as your original code)
     private void animateUIElements(ImageView logo, EditText username, EditText password, Button loginButton, TextView forgotPassword) {
@@ -156,3 +158,4 @@ public class LoginActivity extends AppCompatActivity {
         forgotPassword.animate().alpha(1f).setDuration(800).setStartDelay(1100).start();
     }
 }
+
