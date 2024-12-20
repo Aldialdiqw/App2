@@ -1,10 +1,14 @@
 package com.example.app2;
 
+import android.app.ActionBar;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -16,7 +20,25 @@ public class ResetPasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reset_password_page);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            WindowManager.LayoutParams params = getWindow().getAttributes();
+            params.layoutInDisplayCutoutMode =
+                    WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+            getWindow().setAttributes(params);
+        }
 
+        // Aktivizoni Immersive Mode për fshehjen e Status dhe Navigation Bar
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_FULLSCREEN |
+                        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        );
+
+        // Fshehni ActionBar (nëse ekziston)
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
         EditText newPasswordInput = findViewById(R.id.new_password);
         EditText confirmPasswordInput = findViewById(R.id.confirm_password);
         Button btnReset = findViewById(R.id.btn_reset);
@@ -47,6 +69,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
                 Toast.makeText(this, "Password reset successfully", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(ResetPasswordActivity.this, LoginActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 finish();
             } else {
                 Toast.makeText(this, "Failed to reset password", Toast.LENGTH_SHORT).show();

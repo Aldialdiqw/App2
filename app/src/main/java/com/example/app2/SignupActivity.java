@@ -1,8 +1,12 @@
 package com.example.app2;
 
+import android.app.ActionBar;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -34,7 +38,25 @@ public class SignupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_page);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            WindowManager.LayoutParams params = getWindow().getAttributes();
+            params.layoutInDisplayCutoutMode =
+                    WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+            getWindow().setAttributes(params);
+        }
 
+        // Aktivizoni Immersive Mode për fshehjen e Status dhe Navigation Bar
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_FULLSCREEN |
+                        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        );
+
+        // Fshehni ActionBar (nëse ekziston)
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
         // Initialize the database helper
         dbHelper = new DatabaseHelper(this);
 
@@ -80,6 +102,7 @@ public class SignupActivity extends AppCompatActivity {
                     Toast.makeText(SignupActivity.this, "Signup Successful", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 } else {
                     Toast.makeText(SignupActivity.this, "Signup Failed. Please try again later.", Toast.LENGTH_SHORT).show();
                 }
@@ -90,6 +113,7 @@ public class SignupActivity extends AppCompatActivity {
         alreadyHaveAccount.setOnClickListener(v -> {
             Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         });
     }
 
@@ -120,26 +144,26 @@ public class SignupActivity extends AppCompatActivity {
     private void AnimateUIElements(ImageView logo, EditText email, EditText password, EditText confirmPassword, Button signupButton, TextView alreadyHaveAccount) {
         // Animate logo
         logo.setAlpha(0f);
-        logo.animate().translationYBy(100f).alpha(1f).setDuration(1000).setStartDelay(300).start();
+        logo.animate().translationYBy(100f).alpha(1f).setDuration(800).setStartDelay(300).start();
 
         // Animate email field
         email.setAlpha(0f);
-        email.animate().alpha(1f).setDuration(800).setStartDelay(500).start();
+        email.animate().alpha(1f).setDuration(600).setStartDelay(400).start();
 
         // Animate password field
         password.setAlpha(0f);
-        password.animate().alpha(1f).setDuration(800).setStartDelay(700).start();
+        password.animate().alpha(1f).setDuration(600).setStartDelay(550).start();
 
         // Animate confirm password field
         confirmPassword.setAlpha(0f);
-        confirmPassword.animate().alpha(1f).setDuration(800).setStartDelay(900).start();
+        confirmPassword.animate().alpha(1f).setDuration(600).setStartDelay(700).start();
 
         // Animate signup button
         signupButton.setAlpha(0f);
-        signupButton.animate().alpha(1f).setDuration(800).setStartDelay(1100).start();
+        signupButton.animate().alpha(1f).setDuration(600).setStartDelay(850).start();
 
         // Animate "Already have an account" text
         alreadyHaveAccount.setAlpha(0f);
-        alreadyHaveAccount.animate().alpha(1f).setDuration(800).setStartDelay(1300).start();
+        alreadyHaveAccount.animate().alpha(1f).setDuration(600).setStartDelay(1000).start();
     }
 }

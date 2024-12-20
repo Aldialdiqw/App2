@@ -1,91 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="?android:attr/windowBackground">
+    >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+    <!-- Header -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:text="Data Manager"
+        android:textColor="@android:color/white"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Header -->
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="4dp"
-            android:text="Data Manager"
-            android:textColor="?android:attr/textColorPrimary"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardWallet"
+        android:layout_width="378dp"
+        android:layout_height="415dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="?android:attr/colorBackground"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toTopOf="@id/card2FASection"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardWallet"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            app:cardBackgroundColor="?attr/colorSurface"
-            app:cardCornerRadius="16dp"
-            app:layout_constraintTop_toBottomOf="@id/tvTitle">
+            android:layout_height="418dp"
+            android:background="?android:attr/colorBackground">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="?android:attr/colorBackground"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="24dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="My wallet"
-                    android:textColor="?android:attr/textColorPrimary"
-                    android:textSize="24sp"
+                    android:fontFamily="sans-serif-medium"
+
+                    android:text="My Wallet"
+                    android:textSize="28sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Browse all your items."
-                    android:textColor="?android:attr/textColorSecondary"
-                    android:textSize="16sp" />
+                    android:fontFamily="sans-serif-light"
+
+                    android:text="Browse all your items"
+                    android:textSize="18sp" />
 
                 <GridLayout
                     android:id="@+id/passwords"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="32dp"
                     android:columnCount="3">
 
                     <!-- Credit/debit cards -->
                     <LinearLayout
+
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/cards"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:contentDescription="Credit/debit cards"
-                            android:src="@drawable/credit_card"
-                            app:tint="?attr/colorPrimary" />
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:background="?android:attr/colorBackground"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="4dp">
+
+                            <ImageView
+                                android:id="@+id/cards"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="Credit/debit cards"
+                                android:src="@drawable/credit_card"
+                                app:tint="@android:color/white" />
+                        </com.google.android.material.card.MaterialCardView>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="Credit/debit\ncards"
+                            android:text="Credit/Debit\nCards"
                             android:textAlignment="center"
-                            android:textColor="?android:attr/textColorPrimary"
+
                             android:textSize="14sp" />
                     </LinearLayout>
 
@@ -97,13 +118,22 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/memberships"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:contentDescription="Memberships"
-                            android:src="@drawable/membership"
-                            app:tint="?attr/colorSecondary" />
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:background="?android:attr/colorBackground"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="4dp">
+
+                            <ImageView
+                                android:id="@+id/memberships"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="Memberships"
+                                android:src="@drawable/membership"
+                                app:tint="@android:color/white" />
+                        </com.google.android.material.card.MaterialCardView>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -111,7 +141,7 @@
                             android:layout_marginTop="8dp"
                             android:text="Memberships"
                             android:textAlignment="center"
-                            android:textColor="?android:attr/textColorPrimary"
+
                             android:textSize="14sp" />
                     </LinearLayout>
 
@@ -123,13 +153,22 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/vouchers"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:contentDescription="Vouchers"
-                            android:src="@drawable/vouchers"
-                            app:tint="?attr/colorAccent" />
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:background="?android:attr/colorBackground"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="4dp">
+
+                            <ImageView
+                                android:id="@+id/vouchers"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="Vouchers"
+                                android:src="@drawable/vouchers"
+                                app:tint="@android:color/white" />
+                        </com.google.android.material.card.MaterialCardView>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -137,11 +176,11 @@
                             android:layout_marginTop="8dp"
                             android:text="Vouchers"
                             android:textAlignment="center"
-                            android:textColor="?android:attr/textColorPrimary"
+
                             android:textSize="14sp" />
                     </LinearLayout>
 
-                    <!-- Samsung Pass -->
+                    <!-- Passwords -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -150,13 +189,22 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/password"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:contentDescription="Pass"
-                            android:src="@drawable/password"
-                            app:tint="?attr/colorPrimaryVariant" />
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:background="?android:attr/colorBackground"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="4dp">
+
+                            <ImageView
+                                android:id="@+id/password"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="Pass"
+                                android:src="@drawable/password"
+                                app:tint="@android:color/white" />
+                        </com.google.android.material.card.MaterialCardView>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -164,11 +212,11 @@
                             android:layout_marginTop="8dp"
                             android:text="Passwords"
                             android:textAlignment="center"
-                            android:textColor="?android:attr/textColorPrimary"
+
                             android:textSize="14sp" />
                     </LinearLayout>
 
-                    <!-- Digital keys -->
+                    <!-- Personal IDs -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -177,25 +225,34 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/personal_ids"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:contentDescription="Personal id"
-                            android:src="@drawable/id_card"
-                            app:tint="?attr/colorPrimary" />
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:background="?android:attr/colorBackground"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="4dp">
+
+                            <ImageView
+                                android:id="@+id/personal_ids"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="Personal id"
+                                android:src="@drawable/id_card"
+                                app:tint="@android:color/white" />
+                        </com.google.android.material.card.MaterialCardView>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="Personal Ids"
+                            android:text="Personal IDs"
                             android:textAlignment="center"
-                            android:textColor="?android:attr/textColorPrimary"
+
                             android:textSize="14sp" />
                     </LinearLayout>
 
-                    <!-- National ID -->
+                    <!-- Other data -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -204,13 +261,22 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/other"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:contentDescription="Other"
-                            android:src="@drawable/other"
-                            app:tint="?attr/colorPrimary" />
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:background="?android:attr/colorBackground"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="4dp">
+
+                            <ImageView
+                                android:id="@+id/other"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="Other"
+                                android:src="@drawable/other"
+                                app:tint="@android:color/white" />
+                        </com.google.android.material.card.MaterialCardView>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -218,45 +284,56 @@
                             android:layout_marginTop="8dp"
                             android:text="Other data"
                             android:textAlignment="center"
-                            android:textColor="?android:attr/textColorPrimary"
+
                             android:textSize="14sp" />
                     </LinearLayout>
                 </GridLayout>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card2FASection"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_logout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
+            android:background="?android:attr/colorBackground"
             android:id="@+id/ll2FASection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
             android:orientation="vertical"
-            android:padding="16dp"
-            app:layout_constraintTop_toBottomOf="@id/cardWallet"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:background="?attr/colorSurface"
-            android:showDividers="middle">
+            android:padding="24dp">
 
-            <!-- 2FA Title -->
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Two-Factor Authentication"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="20sp"
-                android:textStyle="bold" />
 
-            <!-- 2FA Description -->
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium" />
+
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="Enhance your account security by enabling two-factor authentication."
-                android:textColor="?android:attr/textColorSecondary"
-                android:textSize="16sp" />
 
-            <!-- Enable 2FA Switch -->
+                android:textSize="16sp"
+                android:fontFamily="sans-serif-light" />
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -269,30 +346,32 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Enable 2FA"
-                    android:textColor="?android:attr/textColorPrimary"
-                    android:textSize="16sp" />
 
-                <Switch
+                    android:textSize="18sp"
+                    android:fontFamily="sans-serif-medium" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/switch2FA"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:thumbTint="?attr/colorPrimary"
-                    android:trackTint="?attr/colorPrimaryVariant"
-                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+                    android:layout_height="wrap_content" />
+
             </LinearLayout>
         </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
-        <Button
-            android:id="@+id/btn_logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Logout"
-            android:textSize="16sp"
-            android:padding="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/ll2FASection"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_logout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Logout"
+        android:textSize="18sp"
+        android:padding="16dp"
+        app:cornerRadius="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.example.app2;
+package creditcard;
 
 public class CreditCard {
     private int creditId; // Added creditId field

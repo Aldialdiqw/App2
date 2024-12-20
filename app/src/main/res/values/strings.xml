@@ -2,7 +2,7 @@
     <string name="app_name">App</string>
 
         <string name="app_logo">App Logo</string>
-        <string name="forgot_password_instruction">Enter your email address and we\'ll send you instructions to reset your password.</string>
+        <string name="forgot_password_instruction">Enter your email address and we\'ll send you the 6 digit  code to reset your password.</string>
         <string name="email_hint">Email</string>
         <string name="send_button">Send</string>
         <string name="back_to_login">Back to Login</string>

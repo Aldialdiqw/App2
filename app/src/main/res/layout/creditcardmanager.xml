@@ -6,42 +6,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".CreditCardActivity">
+    tools:context="creditcard.CreditCardActivity">
 
     <!-- Add Card Button -->
-    <Button
-        android:id="@+id/btn_add_card"
-        android:layout_width="64dp"
-        android:layout_height="55dp"
-        android:text="+"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="16dp" />
 
     <!-- RecyclerView for Credit Cards -->
 
 
+    <Button
+        android:id="@+id/btn_add_card"
+        android:layout_width="386dp"
+        android:layout_height="47dp"
+        android:layout_margin="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="+"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_cards"
-        android:layout_width="369dp"
-        android:layout_height="458dp"
+        android:layout_width="380dp"
+        android:layout_height="593dp"
         android:clipToPadding="false"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.156"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_add_card"
-        app:layout_constraintVertical_bias="0.285" />
+        app:layout_constraintVertical_bias="0.154" />
 
-    <ImageView
-        android:id="@+id/img_fingerprint"
-        android:layout_width="105dp"
-        android:layout_height="49dp"
-        android:contentDescription="Fingerprint image"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

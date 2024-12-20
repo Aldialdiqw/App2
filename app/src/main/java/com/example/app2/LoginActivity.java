@@ -1,10 +1,13 @@
 package com.example.app2;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,7 +25,25 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_page);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            WindowManager.LayoutParams params = getWindow().getAttributes();
+            params.layoutInDisplayCutoutMode =
+                    WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+            getWindow().setAttributes(params);
+        }
 
+        // Aktivizoni Immersive Mode për fshehjen e Status dhe Navigation Bar
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_FULLSCREEN |
+                        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        );
+
+        // Fshehni ActionBar (nëse ekziston)
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
         // Initialize Database Helper
         dbHelper = new DatabaseHelper(this);
 
@@ -91,6 +112,7 @@ public class LoginActivity extends AppCompatActivity {
         forgotPassword.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, ForgotActivity.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         });
     }
 
@@ -134,6 +156,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 finish();
             }
         }
@@ -143,19 +166,19 @@ public class LoginActivity extends AppCompatActivity {
     // Function to animate UI elements (same as your original code)
     private void animateUIElements(ImageView logo, EditText username, EditText password, Button loginButton, TextView forgotPassword) {
         logo.setAlpha(0f);
-        logo.animate().translationYBy(100f).alpha(1f).setDuration(1000).setStartDelay(300).start();
+        logo.animate().translationYBy(100f).alpha(1f).setDuration(700).setStartDelay(300).start();
 
         username.setAlpha(0f);
-        username.animate().alpha(1f).setDuration(800).setStartDelay(500).start();
+        username.animate().alpha(1f).setDuration(500).setStartDelay(400).start();
 
         password.setAlpha(0f);
-        password.animate().alpha(1f).setDuration(800).setStartDelay(700).start();
+        password.animate().alpha(1f).setDuration(500).setStartDelay(600).start();
 
         loginButton.setAlpha(0f);
-        loginButton.animate().alpha(1f).setDuration(800).setStartDelay(900).start();
+        loginButton.animate().alpha(1f).setDuration(500).setStartDelay(800).start();
 
         forgotPassword.setAlpha(0f);
-        forgotPassword.animate().alpha(1f).setDuration(800).setStartDelay(1100).start();
+        forgotPassword.animate().alpha(1f).setDuration(500).setStartDelay(1000).start();
     }
 }
 

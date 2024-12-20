@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
 
     android:padding="8dp"
-    tools:context=".CreditCardActivity">
+    tools:context="creditcard.CreditCardActivity">
 
     <!-- Cardholder Name -->
     <EditText
@@ -28,6 +28,8 @@
         android:layout_margin="8dp"
         android:hint="Enter Number"
         android:inputType="number"
+        android:maxLength="16"
+        android:digits="0123456789"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,6 +59,8 @@
                 android:layout_height="wrap_content"
                 android:hint="MM/YY"
                 android:inputType="date"
+                android:maxLength="5"
+                android:digits="0123456789/"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -74,6 +78,8 @@
                 android:layout_height="wrap_content"
                 android:hint="CVV"
                 android:inputType="numberPassword"
+                android:maxLength="4"
+                android:digits="0123456789"
                 android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
@@ -89,3 +95,4 @@
         app:layout_constraintTop_toBottomOf="@id/ll_expiry_cvv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
