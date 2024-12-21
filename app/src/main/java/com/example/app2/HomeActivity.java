@@ -29,26 +29,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            WindowManager.LayoutParams params = getWindow().getAttributes();
-            params.layoutInDisplayCutoutMode =
-                    WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
-            getWindow().setAttributes(params);
-        }
-
-        // Aktivizoni Immersive Mode për fshehjen e Status dhe Navigation Bar
-        getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_FULLSCREEN |
-                        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
-                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-        );
-
-        // Fshehni ActionBar (nëse ekziston)
-        ActionBar actionBar = getActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
-        // Initialize SharedPreferences
+        GLOBAL.enableImmersiveMode(this);
         sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE);
 
         // Initialize ImageViews
@@ -63,11 +44,20 @@ public class HomeActivity extends AppCompatActivity {
         creditcard.setOnClickListener(v -> {
             Intent intent = new Intent(HomeActivity.this, CreditCardActivity.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            finish();
+            Log.d("HomeActivity", "Starting CreditCardActivity");
+        });
+        memberships.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, MembershipManager.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            finish();
             Log.d("HomeActivity", "Starting CreditCardActivity");
         });
 
-        // Initialize and set click listener for logout button
-        Button logoutButton = findViewById(R.id.btn_logout); // Ensure you have a logout button in your layout
+
+        Button logoutButton = findViewById(R.id.btn_logout);
 
         logoutButton.setOnClickListener(v -> {
 

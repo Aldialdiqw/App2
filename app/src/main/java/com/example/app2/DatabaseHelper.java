@@ -16,8 +16,8 @@ import creditcard.CreditCard;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "datab.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final String DATABASE_NAME = "data4.db";
+    private static final int DATABASE_VERSION = 5;
     public static final String TABLE_NAME = "users";
     public static final String COLUMN_EMAIL = "email";
     public static final String COLUMN_PASSWORD = "password";
@@ -26,7 +26,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_TABLE_USERS = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -45,14 +44,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "FOREIGN KEY (user_id) REFERENCES users(id)"
                 + ")";
         db.execSQL(CREATE_TABLE_CREDITCARD);
+
+
+        String CREATE_MEMBERSHIP_TABLE = "CREATE TABLE IF NOT EXISTS membership_new (" +
+                "m_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "membershipName TEXT, " +
+                "companyName TEXT, " +
+                "user_id INTEGER, " +
+                "price REAL, " +
+                "date_due TEXT)";
+        db.execSQL(CREATE_MEMBERSHIP_TABLE);
     }
 
     @Override
+
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion < 2) {
+        if (oldVersion < 4) {
             Log.d("DB_LOG", "Database upgraded from version " + oldVersion + " to " + newVersion);
+
+            db.execSQL("DROP TABLE IF EXISTS membership_new");
+            onCreate(db);
         }
     }
+
 
     public boolean insertUser(String email, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -195,6 +209,50 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.delete("creditcard", "credit_id = ?", new String[]{String.valueOf(cardId)});
         db.close();
     }
+    public boolean insertMembership(int userId, String membershipName, String companyName, String price, String date_due) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put("membershipName", membershipName);
+        contentValues.put("companyName", companyName);
+        contentValues.put("price", price);
+        contentValues.put("date_due", date_due);
+        contentValues.put("user_id", userId);
+
+        long result = db.insert("membership_new", null, contentValues);
+        return result != -1;
+    }
+    public void deleteMembership(int membershipId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("membership_new", "m_id = ?", new String[]{String.valueOf(membershipId)});
+        db.close();
+    }
+    public List<MembershipInfo> getAllMemberships(int userId) {
+        List<MembershipInfo> memberships = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT m_id, membershipName, companyName, price, date_due FROM membership_new WHERE user_id = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(userId)});
+
+        if (cursor.moveToFirst()) {
+            do {
+                int m_Id = cursor.getInt(0);
+                String membershipName = cursor.getString(1);
+                String companyName = cursor.getString(2);
+                double price = cursor.getDouble(3);  // Changed from String to double
+                String date_due = cursor.getString(4);
+
+                memberships.add(new MembershipInfo(m_Id, membershipName, companyName, price, date_due));
+            } while (cursor.moveToNext());
+        }
+
+        if (cursor != null) {
+            cursor.close();
+        }
+        db.close();
+        return memberships;
+    }
+
 
     public List<CreditCard> getAllCreditCards(int userId) {
         List<CreditCard> creditCards = new ArrayList<>();

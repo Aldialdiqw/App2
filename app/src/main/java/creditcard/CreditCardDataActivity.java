@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.app2.DatabaseHelper;
+import com.example.app2.GLOBAL;
 import com.example.app2.R;
 
 import java.util.Calendar;
@@ -27,27 +28,9 @@ public class CreditCardDataActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.creditcard);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            WindowManager.LayoutParams params = getWindow().getAttributes();
-            params.layoutInDisplayCutoutMode =
-                    WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
-            getWindow().setAttributes(params);
-        }
+        GLOBAL.enableImmersiveMode(this);
 
-        // Activate Immersive Mode to hide Status and Navigation Bars
-        getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_FULLSCREEN |
-                        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
-                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-        );
 
-        // Hide ActionBar (if exists)
-        ActionBar actionBar = getActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
-
-        // Initialize the DatabaseHelper
         dbHelper = new DatabaseHelper(this);
 
         // Find views by ID
@@ -123,13 +106,18 @@ public class CreditCardDataActivity extends AppCompatActivity {
 
     }
 
-    // Method to validate card number using Luhn Algorithm
+    @Override
+    public void onBackPressed() {
+
+        super.onBackPressed();
+        finish();
+    }
+
     private boolean isValidCardNumber(String cardNumber) {
 
         if (cardNumber.length() != 16 || !cardNumber.matches("\\d+")) {
             return false;
         }
-
 
         int sum = 0;
         boolean alternate = false;
@@ -146,7 +134,6 @@ public class CreditCardDataActivity extends AppCompatActivity {
         }
         return (sum % 10 == 0);
     }
-
 
     // Method to validate expiration date (MM/YY format)
     private boolean isValidExpirationDate(String expirationDate) {

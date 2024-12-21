@@ -27,32 +27,14 @@ public class MainActivity extends AppCompatActivity {
     private ImageView logo;
     private TextView terms;
     private TextView appName;
-    private SQLiteDatabase db;  // Database reference
-    private DatabaseHelper dbHelper; // Database helper
+    private SQLiteDatabase db;
+    private DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            WindowManager.LayoutParams params = getWindow().getAttributes();
-            params.layoutInDisplayCutoutMode =
-                    WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
-            getWindow().setAttributes(params);
-        }
-
-        // Aktivizoni Immersive Mode për fshehjen e Status dhe Navigation Bar
-        getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_FULLSCREEN |
-                        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
-                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-        );
-
-        // Fshehni ActionBar (nëse ekziston)
-        ActionBar actionBar = getActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
+        GLOBAL.enableImmersiveMode(this);
 
         // Initialize views
         btnSignup = findViewById(R.id.btn_signup);

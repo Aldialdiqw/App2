@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    >
+    android:fitsSystemWindows="true">
 
     <!-- Header -->
     <TextView
@@ -14,8 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="24dp"
-        android:text="Data Manager"
-        android:textColor="@android:color/white"
+        android:text="Secure Vault"
+        android:background="?android:attr/colorBackground"
         android:textSize="32sp"
         android:textStyle="bold"
         android:fontFamily="sans-serif-medium"
@@ -24,7 +23,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardWallet"
-        android:layout_width="378dp"
+        android:layout_width="0dp"
         android:layout_height="415dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
@@ -54,7 +53,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
-
                     android:text="My Wallet"
                     android:textSize="28sp"
                     android:textStyle="bold" />
@@ -63,7 +61,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
-
                     android:text="Browse all your items"
                     android:textSize="18sp" />
 
@@ -76,7 +73,6 @@
 
                     <!-- Credit/debit cards -->
                     <LinearLayout
-
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"
@@ -106,7 +102,6 @@
                             android:layout_marginTop="8dp"
                             android:text="Credit/Debit\nCards"
                             android:textAlignment="center"
-
                             android:textSize="14sp" />
                     </LinearLayout>
 
@@ -141,7 +136,6 @@
                             android:layout_marginTop="8dp"
                             android:text="Memberships"
                             android:textAlignment="center"
-
                             android:textSize="14sp" />
                     </LinearLayout>
 
@@ -176,7 +170,6 @@
                             android:layout_marginTop="8dp"
                             android:text="Vouchers"
                             android:textAlignment="center"
-
                             android:textSize="14sp" />
                     </LinearLayout>
 
@@ -212,7 +205,6 @@
                             android:layout_marginTop="8dp"
                             android:text="Passwords"
                             android:textAlignment="center"
-
                             android:textSize="14sp" />
                     </LinearLayout>
 
@@ -248,7 +240,6 @@
                             android:layout_marginTop="8dp"
                             android:text="Personal IDs"
                             android:textAlignment="center"
-
                             android:textSize="14sp" />
                     </LinearLayout>
 
@@ -284,7 +275,6 @@
                             android:layout_marginTop="8dp"
                             android:text="Other data"
                             android:textAlignment="center"
-
                             android:textSize="14sp" />
                     </LinearLayout>
                 </GridLayout>
@@ -313,26 +303,21 @@
             android:orientation="vertical"
             android:padding="24dp">
 
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Two-Factor Authentication"
-
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:fontFamily="sans-serif-medium" />
-
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="Enhance your account security by enabling two-factor authentication."
-
                 android:textSize="16sp"
                 android:fontFamily="sans-serif-light" />
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -346,7 +331,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Enable 2FA"
-
                     android:textSize="18sp"
                     android:fontFamily="sans-serif-medium" />
 
@@ -354,7 +338,6 @@
                     android:id="@+id/switch2FA"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -373,5 +356,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

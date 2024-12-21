@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.app2.DatabaseHelper;
+import com.example.app2.GLOBAL;
 import com.example.app2.LoginActivity;
 import com.example.app2.R;
 
@@ -34,25 +35,7 @@ public class CreditCardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.creditcardmanager);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            WindowManager.LayoutParams params = getWindow().getAttributes();
-            params.layoutInDisplayCutoutMode =
-                    WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
-            getWindow().setAttributes(params);
-        }
-
-        // Aktivizoni Immersive Mode për fshehjen e Status dhe Navigation Bar
-        getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_FULLSCREEN |
-                        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
-                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-        );
-
-        // Fshehni ActionBar (nëse ekziston)
-        ActionBar actionBar = getActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
+        GLOBAL.enableImmersiveMode(this);
         Log.d(TAG, "onCreate: Activity started");
 
         // Initialize the Add Card Button
@@ -97,6 +80,22 @@ public class CreditCardActivity extends AppCompatActivity {
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             finish();
         }
+
+
+
+    }
+    @Override
+    public void onBackPressed() {
+        if (shouldAllowBack()) {
+            super.onBackPressed();
+        } else {
+
+        }
     }
 
+
+
+    private boolean shouldAllowBack() {
+        return false;
+    }
 }

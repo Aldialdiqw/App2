@@ -41,7 +41,6 @@ public class CreditCardAdapter extends RecyclerView.Adapter<CreditCardAdapter.Cr
         holder.cvv.setText(creditCard.getCvv());
 
         holder.btnDeleteCard.setOnClickListener(v -> {
-            // Delete card from database
             databaseHelper.deleteCard(creditCard.getCreditId());
 
             // Remove card from RecyclerView and notify adapter

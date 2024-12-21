@@ -75,6 +75,16 @@
             android:exported="false">
 
         </activity>
+        <activity
+            android:name="MembershipManager"
+            android:exported="false">
+
+        </activity>
+        <activity
+            android:name="MembershipActivity"
+            android:exported="false">
+
+        </activity>
 
 
     </application>
