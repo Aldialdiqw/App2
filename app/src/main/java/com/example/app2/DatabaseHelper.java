@@ -13,11 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import creditcard.CreditCard;
+import memberships.MembershipInfo;
+import passwords.Service;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "data4.db";
-    private static final int DATABASE_VERSION = 5;
+    private static final String DATABASE_NAME = "data5.db";
+    private static final int DATABASE_VERSION = 6;
     public static final String TABLE_NAME = "users";
     public static final String COLUMN_EMAIL = "email";
     public static final String COLUMN_PASSWORD = "password";
@@ -54,6 +56,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "price REAL, " +
                 "date_due TEXT)";
         db.execSQL(CREATE_MEMBERSHIP_TABLE);
+
+        String CREATE_passwords = "CREATE TABLE IF NOT EXISTS passwords ("
+                +   "p_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                +  "servicename TEXT, "
+                +   "username TEXT, "
+                +  "password INTEGER, "
+                +   "user_id INTEGER, "
+                + "FOREIGN KEY (user_id) REFERENCES users(user_id)"
+                + ")";
+        db.execSQL(CREATE_passwords);
     }
 
     @Override
@@ -154,19 +166,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return exists;
     }
 
-    public boolean insertCreditCard(int userId, String emri, String creditCardNumber, String expirationDate, String cvv) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
 
-        contentValues.put("emri", emri);
-        contentValues.put("creditcard_number", creditCardNumber);
-        contentValues.put("expiration_date", expirationDate);
-        contentValues.put("ccv", cvv);
-        contentValues.put("user_id", userId);
-
-        long result = db.insert("creditcard", null, contentValues);
-        return result != -1;
-    }
 
     public boolean isUserIdValid(int userId) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -203,7 +203,45 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return -1;
     }
+    public boolean insertCreditCard(int userId, String emri, String creditCardNumber, String expirationDate, String cvv) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
 
+        contentValues.put("emri", emri);
+        contentValues.put("creditcard_number", creditCardNumber);
+        contentValues.put("expiration_date", expirationDate);
+        contentValues.put("ccv", cvv);
+        contentValues.put("user_id", userId);
+
+        long result = db.insert("creditcard", null, contentValues);
+        return result != -1;
+    }
+    public List<CreditCard> getAllCreditCards(int userId) {
+        List<CreditCard> creditCards = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT credit_id, emri, creditcard_number, expiration_date, ccv FROM creditcard WHERE user_id = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(userId)});
+
+        if (cursor.moveToFirst()) {
+            do {
+                int creditId = cursor.getInt(0); // Retrieve credit_id
+                String cardholderName = cursor.getString(1);
+                String cardNumber = cursor.getString(2);
+                String expirationDate = cursor.getString(3);
+                String cvv = cursor.getString(4);
+
+                // Pass creditId to the CreditCard constructor or add a setter if needed
+                creditCards.add(new CreditCard(creditId, cardholderName, cardNumber, expirationDate, cvv));
+            } while (cursor.moveToNext());
+        }
+
+        if (cursor != null) {
+            cursor.close();
+        }
+        db.close();
+        return creditCards;
+    }
     public void deleteCard(int cardId) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("creditcard", "credit_id = ?", new String[]{String.valueOf(cardId)});
@@ -252,25 +290,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return memberships;
     }
+    public boolean insertPassword(int userId, String  servicename, String username, String password) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
 
+        contentValues.put("servicename", servicename);
+        contentValues.put("username", username);
+        contentValues.put("password", password);
+        contentValues.put("user_id", userId);
 
-    public List<CreditCard> getAllCreditCards(int userId) {
-        List<CreditCard> creditCards = new ArrayList<>();
+        long result = db.insert("passwords", null, contentValues);
+        return result != -1;
+    }
+    public void deletePassword(int passwordId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("password", "p_id = ?", new String[]{String.valueOf(passwordId)});
+        db.close();
+    }
+    public List<Service> getAllPaswords(int userId) {
+        List<Service> passwords = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String query = "SELECT credit_id, emri, creditcard_number, expiration_date, ccv FROM creditcard WHERE user_id = ?";
+        String query = "SELECT p_id, servicename, username, password FROM passwords WHERE user_id = ?";
         Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(userId)});
 
         if (cursor.moveToFirst()) {
             do {
-                int creditId = cursor.getInt(0); // Retrieve credit_id
-                String cardholderName = cursor.getString(1);
-                String cardNumber = cursor.getString(2);
-                String expirationDate = cursor.getString(3);
-                String cvv = cursor.getString(4);
+                int p_Id = cursor.getInt(0);
+                String servicename = cursor.getString(1);
+                String username = cursor.getString(2);
+                String password = cursor.getString(3);
 
-                // Pass creditId to the CreditCard constructor or add a setter if needed
-                creditCards.add(new CreditCard(creditId, cardholderName, cardNumber, expirationDate, cvv));
+
+                passwords.add(new Service(p_Id, servicename, username, password));
             } while (cursor.moveToNext());
         }
 
@@ -278,7 +330,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cursor.close();
         }
         db.close();
-        return creditCards;
+        return passwords;
     }
 }
 

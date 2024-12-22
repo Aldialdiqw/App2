@@ -76,17 +76,26 @@
 
         </activity>
         <activity
-            android:name="MembershipManager"
+            android:name="memberships.MembershipManager"
             android:exported="false">
 
         </activity>
         <activity
-            android:name="MembershipActivity"
+            android:name="memberships.MembershipActivity"
             android:exported="false">
 
         </activity>
 
-
+        <activity
+            android:name="passwords.ServiceManager"
+            android:exported="false"
+            >
+        </activity>
+        <activity
+            android:name="passwords.ServiceActivity"
+            android:exported="false"
+            >
+        </activity>
     </application>
 
 </manifest>

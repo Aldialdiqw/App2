@@ -36,22 +36,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         GLOBAL.enableImmersiveMode(this);
 
-        // Initialize views
+
         btnSignup = findViewById(R.id.btn_signup);
         btnLogin = findViewById(R.id.btn_login);
         logo = findViewById(R.id.logo);
 
 
-        // Initialize the database helper
+
         dbHelper = new DatabaseHelper(this);
 
-        // Delete all users
 
 
-        // Log all users in the database
+
+
         logUsers();
 
-        // Animation for logo and app name (optional)
+
         animateLogoAndAppName();
         animateButton(btnSignup);
         animateButtonWithDelay(btnLogin, 300);
@@ -71,10 +71,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    // Function to delete all users from the 'users' table
 
 
-    // Log all users in the 'users' table
+
+
     private void logUsers() {
         Cursor cursor = dbHelper.getReadableDatabase().rawQuery("SELECT * FROM users", null);
 

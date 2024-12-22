@@ -1,19 +1,19 @@
-package com.example.app2;
+package memberships;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.app2.DatabaseHelper;
+import com.example.app2.GLOBAL;
+import com.example.app2.R;
+
 import creditcard.CreditCardActivity;
-import creditcard.CreditCardDataActivity;
 
 public class MembershipActivity extends AppCompatActivity {
     private EditText etMembershipId, etMembershipName, etCompanyName, etPrice, etPaymentDate;
@@ -72,7 +72,7 @@ public class MembershipActivity extends AppCompatActivity {
                 if (isInserted) {
                     Toast.makeText(MembershipActivity.this, "membership details saved", Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(MembershipActivity.this, CreditCardActivity.class);
+                    Intent intent = new Intent(MembershipActivity.this, MembershipManager.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 } else {
@@ -81,18 +81,5 @@ public class MembershipActivity extends AppCompatActivity {
             }
         });
     }
-        @Override
-        public void onBackPressed() {
-            if (shouldAllowBack()) {
-                super.onBackPressed();
-            } else {
 
-            }
-        }
-
-
-
-    private boolean shouldAllowBack() {
-        return false;
-    }
 }

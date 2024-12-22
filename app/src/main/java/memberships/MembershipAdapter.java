@@ -1,4 +1,4 @@
-package com.example.app2;
+package memberships;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.app2.DatabaseHelper;
+import com.example.app2.R;
 
 import java.util.List;
 import java.util.Locale;

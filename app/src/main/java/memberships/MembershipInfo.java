@@ -1,4 +1,4 @@
-package com.example.app2;
+package memberships;
 
 import java.io.Serializable;
 

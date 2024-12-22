@@ -84,18 +84,5 @@ public class CreditCardActivity extends AppCompatActivity {
 
 
     }
-    @Override
-    public void onBackPressed() {
-        if (shouldAllowBack()) {
-            super.onBackPressed();
-        } else {
 
-        }
-    }
-
-
-
-    private boolean shouldAllowBack() {
-        return false;
-    }
 }

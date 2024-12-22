@@ -1,19 +1,17 @@
 package com.example.app2;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import creditcard.CreditCardActivity;
+import memberships.MembershipManager;
+import passwords.ServiceManager;
 
 public class HomeActivity extends AppCompatActivity {
     private ImageView creditcard;
@@ -55,7 +53,13 @@ public class HomeActivity extends AppCompatActivity {
             finish();
             Log.d("HomeActivity", "Starting CreditCardActivity");
         });
-
+        passwords.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, ServiceManager.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            finish();
+            Log.d("HomeActivity", "Starting CreditCardActivity");
+        });
 
         Button logoutButton = findViewById(R.id.btn_logout);
 
@@ -70,5 +74,16 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+    }
+    public void onBackPressed() {
+        if (shouldAllowBack()) {
+            super.onBackPressed();
+        } else {
+
+        }
+    }
+
+    private boolean shouldAllowBack() {
+        return false;
     }
 }
