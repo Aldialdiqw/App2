@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.app2.DatabaseHelper;
 import com.example.app2.GLOBAL;
+import com.example.app2.HomeActivity;
 import com.example.app2.LoginActivity;
 import com.example.app2.R;
 
@@ -71,5 +72,20 @@ public class MembershipManager extends AppCompatActivity {
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             finish();
         }
+    }
+    public void onBackPressed() {
+        if (shouldAllowBack()) {
+            super.onBackPressed();
+        } else {
+
+            Intent intent = new Intent(MembershipManager.this, HomeActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            finish();;
+        }
+    }
+
+    private boolean shouldAllowBack() {
+        return false;
     }
 }

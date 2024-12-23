@@ -15,9 +15,9 @@
         android:layout_marginTop="24dp"
         android:text="Secure Vault"
         android:background="?android:attr/colorBackground"
+        android:fontFamily="@font/montserrat"
         android:textSize="32sp"
         android:textStyle="bold"
-        android:fontFamily="sans-serif-medium"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,6 +28,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:fontFamily="@font/montserrat"
         android:layout_marginBottom="16dp"
         android:background="?android:attr/colorBackground"
         app:cardCornerRadius="24dp"
@@ -40,6 +41,7 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="418dp"
+            android:fontFamily="@font/montserrat"
             android:background="?android:attr/colorBackground">
 
             <LinearLayout
@@ -52,17 +54,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-medium"
+                    android:fontFamily="@font/montserrat"
                     android:text="My Wallet"
                     android:textSize="28sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-light"
-                    android:text="Browse all your items"
-                    android:textSize="18sp" />
 
                 <GridLayout
                     android:id="@+id/passwords"
@@ -155,7 +151,7 @@
                             app:cardElevation="4dp">
 
                             <ImageView
-                                android:id="@+id/vouchers"
+                                android:id="@+id/Secure_Notes"
                                 android:layout_width="48dp"
                                 android:layout_height="48dp"
                                 android:layout_gravity="center"
@@ -168,7 +164,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="Vouchers"
+                            android:text="Secure Notes"
                             android:textAlignment="center"
                             android:textSize="14sp" />
                     </LinearLayout>
@@ -273,7 +269,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="Other data"
+                            android:text="Other"
                             android:textAlignment="center"
                             android:textSize="14sp" />
                     </LinearLayout>
@@ -282,6 +278,7 @@
         </androidx.core.widget.NestedScrollView>
     </androidx.cardview.widget.CardView>
 
+
     <androidx.cardview.widget.CardView
         android:id="@+id/card2FASection"
         android:layout_width="0dp"
@@ -289,67 +286,56 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
         app:cardCornerRadius="24dp"
         app:cardElevation="8dp"
-        app:layout_constraintBottom_toTopOf="@id/btn_logout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/cardWallet">
 
         <LinearLayout
-            android:background="?android:attr/colorBackground"
-            android:id="@+id/ll2FASection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:background="?android:attr/colorBackground"
             android:padding="24dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Two-Factor Authentication"
+                android:fontFamily="@font/montserrat"
+                android:text="Two Factor Authentication"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                android:fontFamily="sans-serif-medium" />
+                android:textStyle="bold" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Enhance your account security by enabling two-factor authentication."
-                android:textSize="16sp"
-                android:fontFamily="sans-serif-light" />
+                android:fontFamily="@font/montserrat"
+                android:text="Enable extra security for your vault"
+                android:textSize="16sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <!-- Enable/Disable Toggle Button -->
+            <Switch
+                android:id="@+id/switch2FA"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginTop="16dp"
-                android:gravity="center_vertical">
+                android:fontFamily="@font/montserrat"
+                android:text="Enable 2FA" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Enable 2FA"
-                    android:textSize="18sp"
-                    android:fontFamily="sans-serif-medium" />
 
-                <com.google.android.material.switchmaterial.SwitchMaterial
-                    android:id="@+id/switch2FA"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_logout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginEnd="26dp"
         android:layout_marginBottom="16dp"
         android:text="Logout"
+        android:fontFamily="@font/montserrat"
         android:textSize="18sp"
         android:padding="16dp"
         app:cornerRadius="12dp"

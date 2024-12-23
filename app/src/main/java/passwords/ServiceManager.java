@@ -14,11 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.app2.DatabaseHelper;
 import com.example.app2.GLOBAL;
+import com.example.app2.HomeActivity;
 import com.example.app2.LoginActivity;
 import com.example.app2.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import creditcard.CreditCardActivity;
 
 public class ServiceManager extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -71,5 +74,20 @@ public class ServiceManager extends AppCompatActivity {
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             finish();
         }
+    }
+    public void onBackPressed() {
+        if (shouldAllowBack()) {
+            super.onBackPressed();
+        } else {
+
+            Intent intent = new Intent(ServiceManager.this, HomeActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            finish();
+        }
+    }
+
+    private boolean shouldAllowBack() {
+        return false;
     }
 }

@@ -22,6 +22,7 @@
                 android:id="@+id/tv_membership_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
                 android:text="ID: "
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -31,6 +32,7 @@
             <TextView
                 android:id="@+id/tv_membership_name"
                 android:layout_width="0dp"
+                android:fontFamily="@font/montserrat"
                 android:layout_height="wrap_content"
                 android:text="Membership Name"
                 app:layout_constraintEnd_toStartOf="@+id/btn_delete_membership"
@@ -38,19 +40,22 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_membership_id" />
 
             <!-- Delete Button -->
+
+            <!-- Company Name -->
             <Button
                 android:id="@+id/btn_delete_membership"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
                 android:text="Delete"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_membership_name" />
 
-            <!-- Company Name -->
             <TextView
                 android:id="@+id/tv_company_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
                 android:text="Company Name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -59,6 +64,7 @@
             <!-- Price -->
             <TextView
                 android:id="@+id/tv_price"
+                android:fontFamily="@font/montserrat"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Price"
@@ -71,6 +77,7 @@
                 android:id="@+id/tv_payment_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
                 android:text="Payment Date"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_price"

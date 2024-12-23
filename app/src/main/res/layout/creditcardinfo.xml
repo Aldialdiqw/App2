@@ -10,19 +10,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:padding="16dp">
+
 
             <!-- Card ID -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_card_id"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
+                android:fontFamily="@font/montserrat"
                 android:layout_height="wrap_content"
                 android:hint="Card ID"
                 app:layout_constraintEnd_toStartOf="@+id/til_cardholder_name"
@@ -45,6 +49,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
                 android:hint="Name on Card"
                 app:layout_constraintEnd_toStartOf="@+id/btn_delete_card"
                 app:layout_constraintStart_toEndOf="@id/til_card_id"
@@ -53,6 +58,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_cardholder_name"
                     android:layout_width="match_parent"
+                    android:fontFamily="@font/montserrat"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -64,6 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Drop"
+                android:fontFamily="@font/montserrat"
                 app:icon="@drawable/ic_delete"
                 app:layout_constraintBottom_toBottomOf="@id/til_cardholder_name"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -75,6 +82,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
                 android:layout_marginTop="16dp"
                 android:hint="Card Number"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -84,6 +92,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_card_number"
                     android:layout_width="match_parent"
+                    android:fontFamily="@font/montserrat"
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:maxLength="16" />
@@ -97,6 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
+                android:fontFamily="@font/montserrat"
                 android:hint="MM/YY"
                 app:layout_constraintEnd_toStartOf="@+id/til_cvv"
                 app:layout_constraintStart_toStartOf="parent"
@@ -105,6 +115,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_expiration_date"
                     android:layout_width="match_parent"
+                    android:fontFamily="@font/montserrat"
                     android:layout_height="wrap_content"
                     android:inputType="date"
                     android:maxLength="5" />
@@ -126,6 +137,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberPassword"
+                    android:fontFamily="@font/montserrat"
                     android:maxLength="4" />
             </com.google.android.material.textfield.TextInputLayout>
 

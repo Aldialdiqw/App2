@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
 
         dbHelper = new DatabaseHelper(this);
 
-        // Initialize SharedPreferences to manage session
+
         sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE);
 
 
@@ -39,17 +39,17 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
 
-        // Find UI elements
+
         ImageView logo = findViewById(R.id.logo);
         EditText email = findViewById(R.id.email);
         EditText password = findViewById(R.id.password);
         Button loginButton = findViewById(R.id.btn_login);
         TextView forgotPassword = findViewById(R.id.forgot_password);
 
-        // Animate UI elements (same as your original code)
+
         animateUIElements(logo, email, password, loginButton, forgotPassword);
 
-        // Set login button click listener
+
         loginButton.setOnClickListener(v -> {
             String user = email.getText().toString();
             String pass = password.getText().toString();
@@ -57,18 +57,17 @@ public class LoginActivity extends AppCompatActivity {
             if (user.isEmpty() || pass.isEmpty()) {
                 Toast.makeText(LoginActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
             } else {
-                // Hash the password before checking
+
                 String hashedPassword = dbHelper.hashPassword(pass);
                 if (hashedPassword != null) {
-                    // Check if user exists in the database
-                    if (dbHelper.checkUser(user, hashedPassword)) {
-                        // If user exists, login successful, go to home page
-                        Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
+                    if (dbHelper.checkUser(user, hashedPassword)) {
+
+                        Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
                         int userId = dbHelper.getUserId(user);
 
-                        // Store session data in SharedPreferences
+
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putBoolean("is_logged_in", true);
                         editor.putString("user_email", user);
@@ -80,8 +79,12 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     } else {
+                        try {
 
-
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
                     }
                 } else {
@@ -89,6 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
 
         // Set forgot password click listener
         forgotPassword.setOnClickListener(v -> {

@@ -96,6 +96,16 @@
             android:exported="false"
             >
         </activity>
+        <activity
+            android:name="SecureNotes.SecureNotesActivity"
+            android:exported="false"
+            >
+        </activity>
+        <activity
+            android:name="SecureNotes.SecureNotesDataActivity"
+            android:exported="false"
+            >
+        </activity>
     </application>
 
 </manifest>

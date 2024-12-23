@@ -1,4 +1,4 @@
-package creditcard;
+package SecureNotes;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,30 +19,31 @@ import com.example.app2.R;
 
 import java.util.List;
 
-public class CreditCardActivity extends AppCompatActivity {
+
+public class SecureNotesActivity extends AppCompatActivity {
     private Button btnAddCard;
     private RecyclerView recyclerViewCards;
-    private CreditCardAdapter adapter;
+    private SecureNoteAdapter adapter;
     private DatabaseHelper databaseHelper;
 
-    private static final String TAG = "CreditCardActivity";
+    private static final String TAG = "SecureNotesActivity";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.creditcardmanager);
+        setContentView(R.layout.securenotesmanager);
         GLOBAL.enableImmersiveMode(this);
         Log.d(TAG, "onCreate: Activity started");
 
-        // Initialize the Add Card Button
+
         btnAddCard = findViewById(R.id.btn_add_card);
         Log.d(TAG, "onCreate: Add card button initialized");
 
-        // Set the button click listener
+
         btnAddCard.setOnClickListener(v -> {
             Log.d(TAG, "onCreate: Add card button clicked");
-            Intent intent = new Intent(CreditCardActivity.this, CreditCardDataActivity.class);
+            Intent intent = new Intent(SecureNotesActivity.this, SecureNotesDataActivity.class);
             startActivity(intent);
         });
 
@@ -51,20 +52,21 @@ public class CreditCardActivity extends AppCompatActivity {
         recyclerViewCards.setLayoutManager(new LinearLayoutManager(this));
         Log.d(TAG, "onCreate: Recycler view set up");
 
-        // Initialize DatabaseHelper
+
         databaseHelper = new DatabaseHelper(this);
         Log.d(TAG, "onCreate: Database helper initialized");
 
-        // Fetch user ID from SharedPreferences
+
         SharedPreferences sharedPreferences = getSharedPreferences("user_session", Context.MODE_PRIVATE);
         int userId = sharedPreferences.getInt("user_id", -1);
         Log.d(TAG, "onCreate: User ID fetched from shared preferences: " + userId);
 
         if (userId != -1) {
-            List<CreditCard> creditCards = databaseHelper.getAllCreditCards(userId);
-            if (creditCards != null && !creditCards.isEmpty()) {
-                // Pass both the list and DatabaseHelper to the adapter
-                adapter = new CreditCardAdapter(creditCards, databaseHelper);
+            List<Note> Note = databaseHelper.getAllNotes(userId);
+            if (Note != null && !Note.isEmpty()) {
+
+                adapter = new SecureNoteAdapter(Note, databaseHelper);
+
                 recyclerViewCards.setAdapter(adapter);
                 Log.d(TAG, "onCreate: Credit card list set in adapter");
             } else {
@@ -72,7 +74,7 @@ public class CreditCardActivity extends AppCompatActivity {
             }
         } else {
             Log.d(TAG, "onCreate: User ID invalid, redirecting to LoginActivity");
-            Intent intent = new Intent(CreditCardActivity.this, LoginActivity.class);
+            Intent intent = new Intent(SecureNotesActivity.this, LoginActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             finish();
@@ -86,7 +88,7 @@ public class CreditCardActivity extends AppCompatActivity {
             super.onBackPressed();
         } else {
 
-            Intent intent = new Intent(CreditCardActivity.this, HomeActivity.class);
+            Intent intent = new Intent(SecureNotesActivity.this, HomeActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             finish();

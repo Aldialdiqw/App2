@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import SecureNotes.SecureNotesActivity;
 import creditcard.CreditCardActivity;
 import memberships.MembershipManager;
 import passwords.ServiceManager;
@@ -16,7 +17,7 @@ import passwords.ServiceManager;
 public class HomeActivity extends AppCompatActivity {
     private ImageView creditcard;
     private ImageView memberships;
-    private ImageView vouchers;
+    private ImageView Securenotes;
     private ImageView passwords;
     private ImageView personal_id;
     private ImageView other;
@@ -33,7 +34,7 @@ public class HomeActivity extends AppCompatActivity {
         // Initialize ImageViews
         creditcard = findViewById(R.id.cards);
         memberships = findViewById(R.id.memberships);
-        vouchers = findViewById(R.id.vouchers);
+        Securenotes = findViewById(R.id.Secure_Notes);
         passwords = findViewById(R.id.password);
         personal_id = findViewById(R.id.personal_ids);
         other = findViewById(R.id.other);
@@ -55,6 +56,13 @@ public class HomeActivity extends AppCompatActivity {
         });
         passwords.setOnClickListener(v -> {
             Intent intent = new Intent(HomeActivity.this, ServiceManager.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            finish();
+            Log.d("HomeActivity", "Starting CreditCardActivity");
+        });
+        Securenotes.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, SecureNotesActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             finish();

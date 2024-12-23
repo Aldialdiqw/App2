@@ -54,6 +54,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="XXX-XXX"
+                    android:fontFamily="@font/montserrat"
                     android:inputType="number"
                     android:maxLength="6"
                     android:textSize="16sp" />
@@ -67,6 +68,7 @@
                 android:layout_marginTop="32dp"
                 android:text="Verify"
                 android:textSize="16sp"
+                android:fontFamily="@font/montserrat"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/code_input_layout"

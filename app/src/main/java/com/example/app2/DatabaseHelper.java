@@ -12,14 +12,16 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
-import creditcard.CreditCard;
+import SecureNotes.Note;
 import memberships.MembershipInfo;
 import passwords.Service;
+import creditcard.CreditCard;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "data5.db";
-    private static final int DATABASE_VERSION = 6;
+    private static final String DATABASE_NAME = "data6.db";
+    private static final int DATABASE_VERSION = 1;
+
     public static final String TABLE_NAME = "users";
     public static final String COLUMN_EMAIL = "email";
     public static final String COLUMN_PASSWORD = "password";
@@ -66,17 +68,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "FOREIGN KEY (user_id) REFERENCES users(user_id)"
                 + ")";
         db.execSQL(CREATE_passwords);
+        String CREATE_SecureNote = "CREATE TABLE IF NOT EXISTS SecureNote ("
+                +   "n_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                +  "notetitle TEXT, "
+                +   "note TEXT, "
+                +   "user_id INTEGER, "
+                + "FOREIGN KEY (user_id) REFERENCES users(user_id)"
+                + ")";
+        db.execSQL(CREATE_SecureNote);
     }
 
     @Override
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion < 4) {
-            Log.d("DB_LOG", "Database upgraded from version " + oldVersion + " to " + newVersion);
 
-            db.execSQL("DROP TABLE IF EXISTS membership_new");
-            onCreate(db);
-        }
     }
 
 
@@ -216,6 +221,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long result = db.insert("creditcard", null, contentValues);
         return result != -1;
     }
+
     public List<CreditCard> getAllCreditCards(int userId) {
         List<CreditCard> creditCards = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -331,6 +337,46 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         db.close();
         return passwords;
+    }
+    public boolean insertNote(int userId, String notetitle, String note) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+
+        contentValues.put("notetitle", notetitle);
+        contentValues.put("note", note);
+        contentValues.put("user_id", userId);
+
+        long result = db.insert("SecureNote ", null, contentValues);
+        return result != -1;
+    }
+    public void deleteNote(int noteId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("SecureNote", "n_id = ?", new String[]{String.valueOf(noteId)});
+        db.close();
+    }
+    public List<Note> getAllNotes(int userId) {
+        List<Note> notes = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT n_id, notetitle, note FROM SecureNote WHERE user_id = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(userId)});
+
+        if (cursor.moveToFirst()) {
+            do {
+                int n_Id = cursor.getInt(0);
+                String notetitle = cursor.getString(1);
+                String note = cursor.getString(2);
+
+                notes.add(new Note(n_Id, notetitle, note));
+            } while (cursor.moveToNext());
+        }
+
+        if (cursor != null) {
+            cursor.close();
+        }
+        db.close();
+        return notes;
     }
 }
 

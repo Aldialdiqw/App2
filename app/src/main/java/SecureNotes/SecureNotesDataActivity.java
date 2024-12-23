@@ -1,4 +1,4 @@
-package passwords;
+package SecureNotes;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,44 +12,37 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.app2.DatabaseHelper;
 import com.example.app2.GLOBAL;
-import com.example.app2.HomeActivity;
 import com.example.app2.R;
 
-import memberships.MembershipActivity;
-import memberships.MembershipManager;
-
-public class ServiceActivity extends AppCompatActivity {
-    private EditText ServiceName, UserName, Password;
+public class SecureNotesDataActivity  extends AppCompatActivity {
+    private EditText n_id, notetitle, note;
     private Button btnSubmit;
     private DatabaseHelper dbHelper;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.password);
+        setContentView(R.layout.securenotes);
         GLOBAL.enableImmersiveMode(this);
         dbHelper = new DatabaseHelper(this);
 
 
-        ServiceName = findViewById(R.id.et_service_name);
-        UserName = findViewById(R.id.et_username);
-        Password = findViewById(R.id.et_password);
-        btnSubmit = findViewById(R.id.btn_save);
+        notetitle = findViewById(R.id.et_note_title);
+        note = findViewById(R.id.et_note_content);
+        btnSubmit = findViewById(R.id.btn_save_note);
 
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String MembershipName = ServiceName.getText().toString().trim();
-                String CompanyName = UserName.getText().toString().trim();
-                String Price = Password.getText().toString().trim();
+                String notetitle1 = notetitle.getText().toString().trim();
+                String note1 = note.getText().toString().trim();
 
 
                 // Validate the inputs
-                if (MembershipName.isEmpty() || CompanyName.isEmpty() || Price.isEmpty() ) {
-                    Toast.makeText(ServiceActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                if (notetitle1.isEmpty() || note1.isEmpty() ) {
+                    Toast.makeText(SecureNotesDataActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -59,28 +52,27 @@ public class ServiceActivity extends AppCompatActivity {
                 int userId = sharedPreferences.getInt("user_id", -1); // Default value -1 if not found
 
                 if (userId == -1) {
-                    Toast.makeText(ServiceActivity.this, "User not logged in", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SecureNotesDataActivity.this, "User not logged in", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 // Check if the user ID exists in the database
                 if (!dbHelper.isUserIdValid(userId)) {
-                    Toast.makeText(ServiceActivity.this, "User ID not valid", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SecureNotesDataActivity.this, "User ID not valid", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
 
-                boolean isInserted = dbHelper.insertPassword(userId, MembershipName, CompanyName, Price);
+                boolean isInserted = dbHelper.insertNote(userId, notetitle1, note1);
 
                 if (isInserted) {
-                    Toast.makeText(ServiceActivity.this, "membership details saved", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SecureNotesDataActivity.this, "membership details saved", Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(ServiceActivity.this, ServiceManager
-                            .class);
+                    Intent intent = new Intent(SecureNotesDataActivity.this, SecureNotesActivity.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 } else {
-                    Toast.makeText(ServiceActivity.this, "Failed to save details", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SecureNotesDataActivity.this, "Failed to save details", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -90,7 +82,7 @@ public class ServiceActivity extends AppCompatActivity {
             super.onBackPressed();
         } else {
 
-            Intent intent = new Intent(ServiceActivity.this, ServiceManager.class);
+            Intent intent = new Intent(SecureNotesDataActivity.this, SecureNotesActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             finish();
@@ -101,3 +93,5 @@ public class ServiceActivity extends AppCompatActivity {
         return false;
     }
 }
+
+

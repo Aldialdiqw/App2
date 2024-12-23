@@ -61,6 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:text="sign_up"
+                    android:fontFamily="@font/montserrat"
                     android:textColor="@android:color/white"
                     app:cornerRadius="32dp"
                     android:backgroundTint="?attr/colorPrimary" />
@@ -74,6 +75,7 @@
                     android:layout_marginTop="16dp"
                     android:text="login"
                     android:textColor="?attr/colorPrimary"
+                    android:fontFamily="@font/montserrat"
                     app:cornerRadius="32dp"
                     app:strokeColor="?attr/colorPrimary" />
             </LinearLayout>

@@ -20,6 +20,8 @@ import com.example.app2.R;
 import java.util.Calendar;
 import java.util.regex.Pattern;
 
+
+
 public class CreditCardDataActivity extends AppCompatActivity {
     Button btn;
     private DatabaseHelper dbHelper;
@@ -98,6 +100,7 @@ public class CreditCardDataActivity extends AppCompatActivity {
                     Intent intent = new Intent(CreditCardDataActivity.this, CreditCardActivity.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    finish();
                 } else {
                     Toast.makeText(CreditCardDataActivity.this, "Failed to save details", Toast.LENGTH_SHORT).show();
                 }
@@ -108,9 +111,19 @@ public class CreditCardDataActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        if (shouldAllowBack()) {
+            super.onBackPressed();
+        } else {
 
-        super.onBackPressed();
-        finish();
+            Intent intent = new Intent(CreditCardDataActivity.this, CreditCardActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            finish();
+        }
+    }
+
+    private boolean shouldAllowBack() {
+        return false;
     }
 
     private boolean isValidCardNumber(String cardNumber) {

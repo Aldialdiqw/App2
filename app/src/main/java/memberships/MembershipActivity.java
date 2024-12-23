@@ -14,6 +14,8 @@ import com.example.app2.GLOBAL;
 import com.example.app2.R;
 
 import creditcard.CreditCardActivity;
+import passwords.ServiceActivity;
+import passwords.ServiceManager;
 
 public class MembershipActivity extends AppCompatActivity {
     private EditText etMembershipId, etMembershipName, etCompanyName, etPrice, etPaymentDate;
@@ -81,5 +83,21 @@ public class MembershipActivity extends AppCompatActivity {
             }
         });
     }
+    public void onBackPressed() {
+        if (shouldAllowBack()) {
+            super.onBackPressed();
+        } else {
 
+            Intent intent = new Intent(MembershipActivity.this, MembershipManager.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            finish();
+        }
+    }
+
+    private boolean shouldAllowBack() {
+        return false;
+    }
 }
+
+
