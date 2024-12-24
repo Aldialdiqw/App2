@@ -3,150 +3,310 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_coordinator_layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".YourActivity">
+    android:layout_height="match_parent"
+    >
 
-    <!-- MaterialCardView for ID card appearance -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_id_document"
+    <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="4dp"
-        app:cardUseCompatPadding="true"
-        android:backgroundTint="@color/teal"
-        app:strokeColor="@android:color/white"
-        app:strokeWidth="2dp">
+        android:layout_height="match_parent">
 
-        <!-- ConstraintLayout for structured content -->
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:orientation="vertical">
 
-            <!-- Government Emblem -->
-            <ImageView
-                android:id="@+id/iv_emblem"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:contentDescription="Government Emblem"
-                android:src="@drawable/kosovoemblemvector"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- ID Card Title -->
-            <TextView
-                android:id="@+id/tv_id_title"
-                android:layout_width="0dp"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_id_document"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="National Identity Card"
-                android:textColor="@android:color/white"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@id/iv_emblem"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/iv_emblem"
-                android:gravity="center"
-                android:paddingStart="8dp" />
-
-            <!-- Profile Picture -->
-
-            <!-- Personal Information -->
-            <ImageView
-                android:id="@+id/iv_profile_picture"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/profile_picture_border"
-                android:contentDescription="Profile Picture"
-                android:src="@drawable/ic_profile_placeholder"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_emblem"
-                app:layout_constraintVertical_bias="0.17" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginStart="16dp"
-                app:layout_constraintStart_toEndOf="@id/iv_profile_picture"
-                app:layout_constraintTop_toBottomOf="@id/tv_id_title"
-                app:layout_constraintEnd_toEndOf="parent">
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="0dp"
+                android:backgroundTint="@color/teal"
 
-                <TextView
-                    android:id="@+id/tv_full_name"
-                    android:layout_width="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true"
+                app:strokeColor="@android:color/white"
+                app:strokeWidth="2dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="John Doe"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:paddingTop="4dp" />
 
-                <TextView
-                    android:id="@+id/tv_id_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ID Number: 123456789"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp"
-                    android:paddingTop="4dp" />
+                    android:padding="16dp">
 
-                <TextView
-                    android:id="@+id/tv_birthdate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Birthdate: 01/01/1990"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp"
-                    android:paddingTop="4dp" />
 
-                <TextView
-                    android:id="@+id/tv_nationality"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nationality: USA"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp"
-                    android:paddingTop="4dp" />
+                    <TextView
+                        android:id="@+id/tv_id"
+                        android:layout_width="31dp"
+                        android:layout_height="34dp"
+                        android:gravity="center"
+                        android:paddingStart="8dp"
+                        android:text=""
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_emblem"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@id/iv_emblem"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv_gender"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Gender: Male"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp"
-                    android:paddingTop="4dp" />
+                    <ImageView
+                        android:id="@+id/iv_emblem"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:contentDescription="Government Emblem"
+                        android:src="@drawable/kosovoemblemvector"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv_expiry_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Expiry Date: 01/01/2030"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp"
-                    android:paddingTop="4dp" />
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/tv_id_title"
+                        android:layout_width="249dp"
+                        android:layout_height="34dp"
+                        android:gravity="center"
+                        android:paddingStart="8dp"
+                        android:text="National Identity Card"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_emblem"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@id/iv_emblem"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.625" />
 
-            <!-- Signature Placeholder -->
-            <TextView
-                android:id="@+id/tv_signature"
-                android:layout_width="0dp"
+                    <ImageView
+                        android:id="@+id/iv_profile_picture"
+                        android:layout_width="80dp"
+                        android:layout_height="84dp"
+                        android:layout_marginTop="16dp"
+                        android:contentDescription="Profile Picture"
+                        android:src="@drawable/person"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/iv_emblem"
+                        app:layout_constraintVertical_bias="0.404" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/iv_profile_picture"
+                        app:layout_constraintTop_toBottomOf="@id/tv_id_title">
+
+                        <TextView
+                            android:id="@+id/tv_full_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="4dp"
+                            android:text="John Doe"
+                            android:textColor="@android:color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_id_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="4dp"
+                            android:text="ID Number: 123456789"
+                            android:textColor="@android:color/white"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_birthdate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="4dp"
+                            android:text="Birthdate: 01/01/1990"
+                            android:textColor="@android:color/white"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_nationality"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="4dp"
+                            android:text="Nationality: USA"
+                            android:textColor="@android:color/white"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_gender"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="4dp"
+                            android:text="Gender: Male"
+                            android:textColor="@android:color/white"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_expiry_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="4dp"
+                            android:text="Expiry Date: 01/01/2030"
+                            android:textColor="@android:color/white"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Back of ID Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_back_id_document"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Signature"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
-                android:gravity="center"
-                android:paddingTop="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_profile_picture"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="0dp"
+                android:backgroundTint="@color/teal"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true"
+                app:strokeColor="@android:color/white"
+                app:strokeWidth="2dp">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_card_back_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="ID Card - Back"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_date_of_issue_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="16dp"
+                        android:text="Date of Issue:"
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_card_back_title" />
+
+                    <TextView
+                        android:id="@+id/tv_date_of_issue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="8dp"
+                        android:paddingTop="16dp"
+                        android:text="01/01/2022"
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@id/tv_date_of_issue_label"
+                        app:layout_constraintTop_toBottomOf="@id/tv_card_back_title" />
+
+                    <TextView
+                        android:id="@+id/tv_issued_by_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="16dp"
+                        android:text="Issued By:"
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_date_of_issue_label" />
+
+                    <TextView
+                        android:id="@+id/tv_issued_by"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="8dp"
+                        android:paddingTop="16dp"
+                        android:text="Ministry of Internal Affairs"
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@id/tv_issued_by_label"
+                        app:layout_constraintTop_toBottomOf="@id/tv_date_of_issue_label" />
+
+                    <TextView
+                        android:id="@+id/tv_card_id_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="16dp"
+                        android:text="Card ID:"
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_issued_by_label" />
+
+                    <TextView
+                        android:id="@+id/tv_card_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="8dp"
+                        android:paddingTop="16dp"
+                        android:text="1234-5678-9012"
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@id/tv_card_id_label"
+                        app:layout_constraintTop_toBottomOf="@id/tv_issued_by_label" />
+
+                    <TextView
+                        android:id="@+id/tv_residence_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="16dp"
+                        android:text="Residence:"
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_card_id_label" />
+
+                    <TextView
+                        android:id="@+id/tv_residence"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="8dp"
+                        android:paddingTop="16dp"
+                        android:text="123 Main St, Capital City, Country"
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@id/tv_residence_label"
+                        app:layout_constraintTop_toBottomOf="@id/tv_card_id_label" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_delete_entry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+
+                android:text="Delete Entry" />
+
+        </LinearLayout>
+    </ScrollView>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

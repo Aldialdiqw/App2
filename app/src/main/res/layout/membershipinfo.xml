@@ -35,21 +35,20 @@
                 android:fontFamily="@font/montserrat"
                 android:layout_height="wrap_content"
                 android:text="Membership Name"
-                app:layout_constraintEnd_toStartOf="@+id/btn_delete_membership"
+
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_membership_id" />
 
-            <!-- Delete Button -->
 
-            <!-- Company Name -->
             <Button
                 android:id="@+id/btn_delete_membership"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:fontFamily="@font/montserrat"
                 android:text="Delete"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_membership_name" />
+                app:layout_constraintTop_toTopOf="@+id/tv_membership_id" />
 
             <TextView
                 android:id="@+id/tv_company_name"

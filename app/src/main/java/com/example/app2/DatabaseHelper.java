@@ -13,14 +13,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import SecureNotes.Note;
+
 import memberships.MembershipInfo;
 import passwords.Service;
 import creditcard.CreditCard;
+import personal_id.PersonalID;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "data6.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "data8.db";
+    private static final int DATABASE_VERSION = 2;
 
     public static final String TABLE_NAME = "users";
     public static final String COLUMN_EMAIL = "email";
@@ -60,22 +62,42 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_MEMBERSHIP_TABLE);
 
         String CREATE_passwords = "CREATE TABLE IF NOT EXISTS passwords ("
-                +   "p_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                +  "servicename TEXT, "
-                +   "username TEXT, "
-                +  "password INTEGER, "
-                +   "user_id INTEGER, "
+                + "p_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "servicename TEXT, "
+                + "username TEXT, "
+                + "password INTEGER, "
+                + "user_id INTEGER, "
                 + "FOREIGN KEY (user_id) REFERENCES users(user_id)"
                 + ")";
         db.execSQL(CREATE_passwords);
+
         String CREATE_SecureNote = "CREATE TABLE IF NOT EXISTS SecureNote ("
-                +   "n_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                +  "notetitle TEXT, "
-                +   "note TEXT, "
-                +   "user_id INTEGER, "
+                + "n_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "notetitle TEXT, "
+                + "note TEXT, "
+                + "user_id INTEGER, "
                 + "FOREIGN KEY (user_id) REFERENCES users(user_id)"
                 + ")";
         db.execSQL(CREATE_SecureNote);
+
+        String CREATE_personal_id = "CREATE TABLE IF NOT EXISTS personal_id ("
+                + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "full_name TEXT NOT NULL, "
+                + "personal_id TEXT NOT NULL, "
+                + "date_of_birth TEXT NOT NULL, "
+                + "place_of_birth TEXT NOT NULL, "
+                + "date_of_issue TEXT NOT NULL, "
+                + "date_of_expiry TEXT NOT NULL, "
+                + "issued_by TEXT NOT NULL, "
+                + "card_id TEXT NOT NULL, "
+                + "residence TEXT NOT NULL, "
+                + "gender TEXT NOT NULL, "
+                + "nationality TEXT NOT NULL, "
+                + "user_id INTEGER, "
+                + "FOREIGN KEY (user_id) REFERENCES users(user_id)"
+                + ")";
+        db.execSQL(CREATE_personal_id);
+
     }
 
     @Override
@@ -172,7 +194,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-
     public boolean isUserIdValid(int userId) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query("users", new String[]{"id"}, "id = ?", new String[]{String.valueOf(userId)}, null, null, null);
@@ -208,6 +229,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return -1;
     }
+
     public boolean insertCreditCard(int userId, String emri, String creditCardNumber, String expirationDate, String cvv) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -248,11 +270,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return creditCards;
     }
+
     public void deleteCard(int cardId) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("creditcard", "credit_id = ?", new String[]{String.valueOf(cardId)});
         db.close();
     }
+
     public boolean insertMembership(int userId, String membershipName, String companyName, String price, String date_due) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -266,11 +290,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long result = db.insert("membership_new", null, contentValues);
         return result != -1;
     }
+
     public void deleteMembership(int membershipId) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("membership_new", "m_id = ?", new String[]{String.valueOf(membershipId)});
         db.close();
     }
+
     public List<MembershipInfo> getAllMemberships(int userId) {
         List<MembershipInfo> memberships = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -296,7 +322,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return memberships;
     }
-    public boolean insertPassword(int userId, String  servicename, String username, String password) {
+
+    public boolean insertPassword(int userId, String servicename, String username, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
@@ -308,11 +335,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long result = db.insert("passwords", null, contentValues);
         return result != -1;
     }
+
     public void deletePassword(int passwordId) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("password", "p_id = ?", new String[]{String.valueOf(passwordId)});
         db.close();
     }
+
     public List<Service> getAllPaswords(int userId) {
         List<Service> passwords = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -338,6 +367,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return passwords;
     }
+
     public boolean insertNote(int userId, String notetitle, String note) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -350,11 +380,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long result = db.insert("SecureNote ", null, contentValues);
         return result != -1;
     }
+
     public void deleteNote(int noteId) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("SecureNote", "n_id = ?", new String[]{String.valueOf(noteId)});
         db.close();
     }
+
     public List<Note> getAllNotes(int userId) {
         List<Note> notes = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -378,5 +410,68 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return notes;
     }
+
+    public void deletePersonal_id(int personal_id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("personal_id", "id = ?", new String[]{String.valueOf(personal_id)});
+        db.close();
+    }
+
+    public boolean insertPersonal_id(int id, String fullName, String personalId, String date_of_birth, String place_of_birth,String nationality, String date_of_issue, String date_of_expiry, String issued_by, String card_id, String residence, String gender) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+
+        contentValues.put("user_id", id);
+        contentValues.put("full_name", fullName);
+        contentValues.put("personal_id", personalId);
+        contentValues.put("date_of_birth", date_of_birth);
+        contentValues.put("place_of_birth", place_of_birth);
+        contentValues.put("date_of_issue", date_of_issue);
+        contentValues.put("date_of_expiry", date_of_expiry);
+        contentValues.put("nationality", nationality);
+        contentValues.put("issued_by", issued_by);
+        contentValues.put("card_id", card_id);
+        contentValues.put("residence", residence);
+        contentValues.put("gender", gender);
+
+
+        long result = db.insert("personal_id", null, contentValues);
+
+
+        return result != -1;
+    }
+
+    public List<PersonalID> getAllPersonal_id(int userId) {
+        List<PersonalID> personalIds = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT id, full_name, personal_id, date_of_birth, nationality, gender, date_of_expiry,date_of_issue,issued_by,card_id,residence FROM personal_id WHERE user_id = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(userId)});
+
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(0);
+                String fullName = cursor.getString(1);
+                String personalId = cursor.getString(2);
+                String dateOfBirth = cursor.getString(3);
+                String nationality = cursor.getString(4);
+                String gender = cursor.getString(5);
+                String dateOfExpiry = cursor.getString(6);
+                String dateOfIssue = cursor.getString(7);
+                String issuedBy = cursor.getString(8);
+                String cardId = cursor.getString(9);
+                String residence = cursor.getString(10);
+
+
+                personalIds.add(new PersonalID(id, fullName, personalId, dateOfBirth, nationality, gender, dateOfExpiry, dateOfIssue, issuedBy, cardId, residence));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return personalIds;
+    }
+
 }
 
