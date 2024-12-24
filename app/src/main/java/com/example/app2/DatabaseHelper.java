@@ -18,11 +18,12 @@ import memberships.MembershipInfo;
 import passwords.Service;
 import creditcard.CreditCard;
 import personal_id.PersonalID;
+import random.Random;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "data8.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final String DATABASE_NAME = "data9.db";
+    private static final int DATABASE_VERSION = 3;
 
     public static final String TABLE_NAME = "users";
     public static final String COLUMN_EMAIL = "email";
@@ -97,7 +98,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "FOREIGN KEY (user_id) REFERENCES users(user_id)"
                 + ")";
         db.execSQL(CREATE_personal_id);
-
+        String CREATE_Random = "CREATE TABLE IF NOT EXISTS Random ("
+                + "r_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "title TEXT, "
+                + "description TEXT, "
+                + "user_id INTEGER, "
+                + "FOREIGN KEY (user_id) REFERENCES users(user_id)"
+                + ")";
+        db.execSQL(CREATE_Random);
     }
 
     @Override
@@ -472,6 +480,45 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return personalIds;
     }
+    public void deleteRandom(int personal_id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("Random", "r_id = ?", new String[]{String.valueOf(personal_id)});
+        db.close();
+    }
+    public boolean insertRandom(int userId, String title, String description) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
 
+
+        contentValues.put("title", title);
+        contentValues.put("description", description);
+        contentValues.put("user_id", userId);
+
+        long result = db.insert("Random ", null, contentValues);
+        return result != -1;
+    }
+    public List<Random> getAllRandom(int userId) {
+        List<Random> random = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT r_id, title, description FROM Random WHERE user_id = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(userId)});
+
+        if (cursor.moveToFirst()) {
+            do {
+                int r_Id = cursor.getInt(0);
+                String title = cursor.getString(1);
+                String description = cursor.getString(2);
+
+                random.add(new Random(r_Id, title, description));
+            } while (cursor.moveToNext());
+        }
+
+        if (cursor != null) {
+            cursor.close();
+        }
+        db.close();
+        return random;
+    }
 }
 

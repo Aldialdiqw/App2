@@ -67,11 +67,7 @@ public class PersonalIdDataActivity extends AppCompatActivity {
                     return;
                 }
 
-                // Validate personalId to be exactly 12 digits
-                if (!personalId.matches("\\d{12}")) {
-                    Toast.makeText(PersonalIdDataActivity.this, "Personal ID must be exactly 12 digits", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+
 
                 // Retrieve the user ID from SharedPreferences
                 SharedPreferences sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE);

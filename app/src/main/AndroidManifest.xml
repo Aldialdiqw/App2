@@ -21,7 +21,7 @@
         tools:targetApi="31"
         >
 
-        <!-- Main Activity (entry point of your app) -->
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -114,6 +114,16 @@
         </activity>
         <activity
             android:name="personal_id.PersonalIdDataActivity"
+            >
+        </activity>
+        <activity
+            android:name="random.RandomDataActivity"
+            android:exported="false"
+            >
+        </activity>
+        <activity
+            android:name="random.RandomActivity"
+            android:exported="false"
             >
         </activity>
     </application>

@@ -14,6 +14,7 @@ import creditcard.CreditCardActivity;
 import memberships.MembershipManager;
 import passwords.ServiceManager;
 import personal_id.PersonalIdActivity;
+import random.RandomActivity;
 
 public class HomeActivity extends AppCompatActivity {
     private ImageView creditcard;
@@ -71,6 +72,13 @@ public class HomeActivity extends AppCompatActivity {
         });
         personal_id.setOnClickListener(v -> {
             Intent intent = new Intent(HomeActivity.this, PersonalIdActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            finish();
+            Log.d("HomeActivity", "Starting CreditCardActivity");
+        });
+        other.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, RandomActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             finish();
