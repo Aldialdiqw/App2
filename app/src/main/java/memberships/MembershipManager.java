@@ -1,9 +1,13 @@
 package memberships;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,63 +18,81 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.app2.DatabaseHelper;
 import com.example.app2.GLOBAL;
 import com.example.app2.HomeActivity;
-import com.example.app2.LoginActivity;
 import com.example.app2.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-
 
 public class MembershipManager extends AppCompatActivity {
     private RecyclerView recyclerView;
     private MembershipAdapter adapter;
     private List<MembershipInfo> memberships;
     private DatabaseHelper databaseHelper;
+    private HomeActivity HOME;
     private static final String TAG = "MembershipManager";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.membershipmanager);
-        GLOBAL.enableImmersiveMode(this);
+
         recyclerView = findViewById(R.id.recycler_view_cards);
         Button btnAddMembership = findViewById(R.id.btn_add_card);
-
-        memberships = new ArrayList<>();
+        GLOBAL.enableImmersiveMode(this);
         databaseHelper = new DatabaseHelper(this);
+        memberships = new ArrayList<>();
         adapter = new MembershipAdapter(memberships, databaseHelper);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
-        btnAddMembership.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MembershipManager.this, MembershipActivity.class);
-                startActivityForResult(intent, 1);
-            }
+        btnAddMembership.setOnClickListener(v -> {
+            Intent intent = new Intent(MembershipManager.this, MembershipActivity.class);
+            startActivityForResult(intent, 1);
         });
 
-        // Fetch user ID from SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("user_session", Context.MODE_PRIVATE);
         int userId = sharedPreferences.getInt("user_id", -1);
-        Log.d(TAG, "onCreate: User ID fetched from shared preferences: " + userId);
 
         if (userId != -1) {
-            List<MembershipInfo> fetchedMemberships = databaseHelper.getAllMemberships(userId);
-            if (fetchedMemberships != null && !fetchedMemberships.isEmpty()) {
-                memberships.clear();
-                memberships.addAll(fetchedMemberships);
-                adapter.notifyDataSetChanged();
-                Log.d(TAG, "onCreate: Membership list set in adapter");
-            } else {
-                Log.d(TAG, "onCreate: No membership found for user ID: " + userId);
-            }
+            fetchMemberships(userId);
         } else {
-            Log.d(TAG, "onCreate: User ID invalid, redirecting to LoginActivity");
-            Intent intent = new Intent(MembershipManager.this, LoginActivity.class);
+            Log.d(TAG, "User ID invalid. Redirecting to LoginActivity.");
+            Intent intent = new Intent(MembershipManager.this, com.example.app2.LoginActivity.class);
             startActivity(intent);
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             finish();
+        }
+    }
+
+    private void fetchMemberships(int userId) {
+        memberships.clear();
+        List<MembershipInfo> fetchedMemberships = databaseHelper.getAllMemberships(userId);
+
+        if (fetchedMemberships != null && !fetchedMemberships.isEmpty()) {
+            memberships.addAll(fetchedMemberships);
+            adapter.notifyDataSetChanged();
+
+
+        } else {
+            Log.d(TAG, "No memberships found for user ID: " + userId);
+        }
+    }
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            SharedPreferences sharedPreferences = getSharedPreferences("user_session", Context.MODE_PRIVATE);
+            int userId = sharedPreferences.getInt("user_id", -1);
+            if (userId != -1) {
+                fetchMemberships(userId);
+            }
         }
     }
     public void onBackPressed() {
@@ -81,7 +103,7 @@ public class MembershipManager extends AppCompatActivity {
             Intent intent = new Intent(MembershipManager.this, HomeActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-            finish();;
+            finish();
         }
     }
 

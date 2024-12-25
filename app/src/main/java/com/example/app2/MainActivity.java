@@ -126,12 +126,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void animateButton(Button button) {
-        // Fade-in effect for the button
+
         AlphaAnimation fadeIn = new AlphaAnimation(0, 1);
         fadeIn.setDuration(1000);
 
-        // Glow effect by adding shadow layer
-        button.setShadowLayer(10, 0, 0, Color.parseColor("#F3E5F5")); // glow with a custom color
+
+        button.setShadowLayer(10, 0, 0, Color.parseColor("#F3E5F5"));
         button.startAnimation(fadeIn);
 
 
@@ -140,13 +140,20 @@ public class MainActivity extends AppCompatActivity {
     private void animateButtonWithDelay(Button button, int delay) {
         button.postDelayed(() -> animateButton(button), delay);
     }
+    public void onBackPressed() {
+        if (shouldAllowBack()) {
+            super.onBackPressed();
+        } else {
 
-    private void animateButtonWithRotation(Button button) {
-        // Adding rotation animation
-        RotateAnimation rotate = new RotateAnimation(0, 360,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        rotate.setDuration(1000);
-        rotate.setRepeatCount(Animation.INFINITE); // repeat indefinitely
-        button.startAnimation(rotate);
+            Intent intent = new Intent(MainActivity.this, MainActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            finish();
+        }
     }
+
+    private boolean shouldAllowBack() {
+        return false;
+    }
+
 }

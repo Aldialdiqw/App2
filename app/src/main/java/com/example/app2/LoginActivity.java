@@ -23,6 +23,8 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+
+
 public class LoginActivity extends AppCompatActivity {
 
     private DatabaseHelper dbHelper;
@@ -54,11 +56,11 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(v -> {
             String user = email.getText().toString();
             String pass = password.getText().toString();
-
+            Log.d("Debug", "Hashed Password during Login: " + GLOBAL.hashPassword(pass));
             if (user.isEmpty() || pass.isEmpty()) {
                 Toast.makeText(LoginActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
             } else {
-                String hashedPassword = dbHelper.hashPassword(pass);
+                String hashedPassword = GLOBAL.hashPassword(pass);
                 if (hashedPassword != null) {
                     if (dbHelper.checkUser(user, hashedPassword)) {
 
@@ -108,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
         editor.apply();
         Log.d("LoginActivity", "user: " + user);
 
-        // Redirect to HomeActivity
+
         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
         startActivity(intent);
         finish();
@@ -208,6 +210,21 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         }
+    }
+    public void onBackPressed() {
+        if (shouldAllowBack()) {
+            super.onBackPressed();
+        } else {
+
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            finish();
+        }
+    }
+
+    private boolean shouldAllowBack() {
+        return false;
     }
 
     private void animateUIElements(ImageView logo, EditText username, EditText password, Button loginButton, TextView forgotPassword) {

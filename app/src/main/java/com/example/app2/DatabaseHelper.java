@@ -23,7 +23,7 @@ import random.Random;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "data10.db";
+    private static final String DATABASE_NAME = "data12.db";
     private static final int DATABASE_VERSION = 4;
 
     public static final String TABLE_NAME = "users";
@@ -37,10 +37,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_TABLE_USERS = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "("
+        String CREATE_TABLE_USERS = "CREATE TABLE IF NOT EXISTS " + "users" + "("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + COLUMN_EMAIL + " TEXT UNIQUE NOT NULL,"
-                + COLUMN_PASSWORD + " TEXT NOT NULL,"
+                + "email" + " TEXT UNIQUE NOT NULL,"
+                + "password" + " TEXT NOT NULL,"
                 + "FA2 BOOLEAN DEFAULT FALSE"
                 + ")";
         db.execSQL(CREATE_TABLE_USERS);
@@ -70,7 +70,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "p_id INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + "servicename TEXT, "
                 + "username TEXT, "
-                + "password INTEGER, "
+                + "password TEXT, "
                 + "user_id INTEGER, "
                 + "FOREIGN KEY (user_id) REFERENCES users(user_id)"
                 + ")";
@@ -147,7 +147,7 @@ public boolean insertUser(String email, String password) {
             return false;
         }
 
-        String hashedPassword = hashPassword(password);
+        String hashedPassword = GLOBAL.hashPassword(password);
         if (hashedPassword == null) {
             Log.e("DB_ERROR", "Gabim gjatë krijimit të hash-it të fjalëkalimit.");
             return false;
@@ -178,7 +178,8 @@ public boolean insertUser(String email, String password) {
 
     public boolean checkUser(String username, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String hashedPassword = hashPassword(password);
+        String hashedPassword = password;
+        Log.d("DB_DEBUG", "Checking user: " + username + ", Hash: " + hashedPassword);
 
         if (hashedPassword == null) {
             Log.e("DB_ERROR", "Gabim gjatë krijimit të hash-it të fjalëkalimit.");
@@ -196,23 +197,6 @@ public boolean insertUser(String email, String password) {
         return userExists;
     }
 
-    String hashPassword(String password) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hashedBytes = digest.digest(password.getBytes());
-            StringBuilder hexString = new StringBuilder();
-
-            for (byte b : hashedBytes) {
-                String hex = Integer.toHexString(0xff & b);
-                if (hex.length() == 1) hexString.append('0');
-                hexString.append(hex);
-            }
-            return hexString.toString();
-        } catch (NoSuchAlgorithmException e) {
-            Log.e("DB_ERROR", "Gabim gjatë hashing fjalëkalimit: " + e.getMessage());
-            return null;
-        }
-    }
 
     public boolean emailExists(String email) {
         SQLiteDatabase db = this.getReadableDatabase();

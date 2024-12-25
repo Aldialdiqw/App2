@@ -3,11 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.app2">
 
-
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission
+        android:name="android.permission.WRITE_SECURE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
 
     <application
         android:allowBackup="true"
@@ -18,119 +20,41 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.App2"
-        tools:targetApi="31"
-        >
+        tools:targetApi="31">
 
+        <!-- Receiver for notifications -->
+        <receiver android:name=".NotificationReceiver" />
 
+        <!-- Main Activity -->
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!-- Login Activity -->
-        <activity
-            android:name=".LoginActivity"
-            android:exported="false"
-            >
-        </activity>
-
-        <!-- Signup Activity -->
-        <activity
-            android:name=".SignupActivity"
-          >
-        </activity>
-        <activity
-            android:name=".ForgotActivity"
-            android:exported="false"
-           >
-        </activity>
-        <activity
-            android:name=".HomeActivity"
-            android:exported="false"
-           >
-        </activity>
-        <activity
-            android:name=".VerifyCodeActivity"
-            android:exported="false"
-           >
-        </activity>
-        <activity
-            android:name=".ResetPasswordActivity"
-            android:exported="false"
-          >
-        </activity>
-
-        <activity
-            android:name="creditcard.CreditCardDataActivity"
-            android:exported="false"
-           >
-        </activity>
-
-        <activity
-            android:name="creditcard.CreditCardActivity"
-            android:exported="false">
-
-        </activity>
-        <activity
-            android:name="memberships.MembershipManager"
-            android:exported="false">
-
-        </activity>
-        <activity
-            android:name="memberships.MembershipActivity"
-            android:exported="false">
-
-        </activity>
-
-        <activity
-            android:name="passwords.ServiceManager"
-            android:exported="false"
-            >
-        </activity>
-        <activity
-            android:name="passwords.ServiceActivity"
-            android:exported="false"
-            >
-        </activity>
-        <activity
-            android:name="SecureNotes.SecureNotesActivity"
-            android:exported="false"
-            >
-        </activity>
-        <activity
-            android:name="SecureNotes.SecureNotesDataActivity"
-            android:exported="false"
-            >
-        </activity>
-        <activity
-            android:name="personal_id.PersonalIdActivity"
-            android:exported="false"
-            >
-        </activity>
-        <activity
-            android:name="personal_id.PersonalIdDataActivity"
-            >
-        </activity>
-        <activity
-            android:name="random.RandomDataActivity"
-            android:exported="false"
-            >
-        </activity>
-        <activity
-            android:name="random.RandomActivity"
-            android:exported="false"
-            >
-        </activity>
-        <activity
-            android:name=".TwoFactorAuthActivity"
-            android:exported="false"
-            >
-        </activity>
+        <!-- Other Activities -->
+        <activity android:name=".LoginActivity" android:exported="false" />
+        <activity android:name=".SignupActivity" android:exported="false" />
+        <activity android:name=".ForgotActivity" android:exported="false" />
+        <activity android:name=".HomeActivity" android:exported="false" />
+        <activity android:name=".VerifyCodeActivity" android:exported="false" />
+        <activity android:name=".ResetPasswordActivity" android:exported="false" />
+        <activity android:name="creditcard.CreditCardDataActivity" android:exported="false" />
+        <activity android:name="creditcard.CreditCardActivity" android:exported="false" />
+        <activity android:name="memberships.MembershipManager" android:exported="false" />
+        <activity android:name="memberships.MembershipActivity" android:exported="false" />
+        <activity android:name="passwords.ServiceManager" android:exported="false" />
+        <activity android:name="passwords.ServiceActivity" android:exported="false" />
+        <activity android:name="SecureNotes.SecureNotesActivity" android:exported="false" />
+        <activity android:name="SecureNotes.SecureNotesDataActivity" android:exported="false" />
+        <activity android:name="personal_id.PersonalIdActivity" android:exported="false" />
+        <activity android:name="personal_id.PersonalIdDataActivity" android:exported="false" />
+        <activity android:name="random.RandomDataActivity" android:exported="false" />
+        <activity android:name="random.RandomActivity" android:exported="false" />
+        <activity android:name=".TwoFactorAuthActivity" android:exported="false" />
     </application>
 
 </manifest>

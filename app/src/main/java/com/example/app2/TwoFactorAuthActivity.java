@@ -68,4 +68,19 @@ public class TwoFactorAuthActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+    public void onBackPressed() {
+        if (shouldAllowBack()) {
+            super.onBackPressed();
+        } else {
+
+            Intent intent = new Intent(TwoFactorAuthActivity.this, LoginActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            finish();
+        }
+    }
+
+    private boolean shouldAllowBack() {
+        return false;
+    }
 }

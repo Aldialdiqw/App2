@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:gravity="center"
-    android:background="@color/white">
+    android:background="?android:attr/colorBackground">
 
     <!-- Title -->
     <TextView
@@ -16,9 +16,10 @@
         android:text="Two-Factor Authentication"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:fontFamily="@font/montserrat"
         android:gravity="center"
         android:layout_marginBottom="24dp"
-        android:textColor="@color/black" />
+        android:background="?android:attr/colorBackground" />
 
 
     <EditText
@@ -26,7 +27,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter verification code"
+        android:fontFamily="@font/montserrat"
         android:inputType="number"
+        android:background="?android:attr/colorBackground"
         android:padding="12dp"
 
         android:layout_marginBottom="16dp" />
@@ -38,6 +41,7 @@
         android:layout_height="wrap_content"
         android:text="Verify"
         android:padding="12dp"
+        android:fontFamily="@font/montserrat"
 
         android:textColor="@color/white"
         android:textStyle="bold"

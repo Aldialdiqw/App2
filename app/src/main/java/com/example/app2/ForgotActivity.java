@@ -142,6 +142,21 @@ public class ForgotActivity extends AppCompatActivity {
             return false;
         }
     }
+    public void onBackPressed() {
+        if (shouldAllowBack()) {
+            super.onBackPressed();
+        } else {
+
+            Intent intent = new Intent(ForgotActivity.this, LoginActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            finish();
+        }
+    }
+
+    private boolean shouldAllowBack() {
+        return false;
+    }
 
     private String generateVerificationCode() {
         Random random = new Random();

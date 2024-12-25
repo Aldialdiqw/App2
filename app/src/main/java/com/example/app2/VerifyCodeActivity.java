@@ -46,5 +46,19 @@ public class VerifyCodeActivity extends AppCompatActivity {
             }
         });
     }
+    public void onBackPressed() {
+        if (shouldAllowBack()) {
+            super.onBackPressed();
+        } else {
 
+            Intent intent = new Intent(VerifyCodeActivity.this, LoginActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            finish();
+        }
+    }
+
+    private boolean shouldAllowBack() {
+        return false;
+    }
 }

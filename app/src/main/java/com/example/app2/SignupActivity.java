@@ -49,10 +49,10 @@ public class SignupActivity extends AppCompatActivity {
         Button signupButton = findViewById(R.id.btn_signup);
         TextView alreadyHaveAccount = findViewById(R.id.already_have_account);
 
-        // Animate the UI elements
+
         AnimateUIElements(logo, email, password, confirmPassword, signupButton, alreadyHaveAccount);
 
-        // Handle signup button click
+
         signupButton.setOnClickListener(v -> {
             String mail = email.getText().toString().trim();
             String pass = password.getText().toString().trim();
@@ -77,7 +77,7 @@ public class SignupActivity extends AppCompatActivity {
                     return;
                 }
 
-                // Save user data into SQLite database
+
                 boolean isInserted = dbHelper.insertUser(mail, hashedPassword);
                 if (isInserted) {
                     Toast.makeText(SignupActivity.this, "Signup Successful", Toast.LENGTH_SHORT).show();
@@ -99,12 +99,26 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private boolean isValidPassword(String password) {
-        // Password must contain at least one uppercase letter and one number
+
         Pattern pattern = Pattern.compile("^(?=.*[A-Z])(?=.*\\d).+$");
         return pattern.matcher(password).matches();
     }
 
+    public void onBackPressed() {
+        if (shouldAllowBack()) {
+            super.onBackPressed();
+        } else {
 
+            Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            finish();
+        }
+    }
+
+    private boolean shouldAllowBack() {
+        return false;
+    }
 
     private void AnimateUIElements(ImageView logo, EditText email, EditText password, EditText confirmPassword, Button signupButton, TextView alreadyHaveAccount) {
         // Animate logo
