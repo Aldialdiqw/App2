@@ -70,7 +70,7 @@ public class SignupActivity extends AppCompatActivity {
                 Toast.makeText(SignupActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
             } else {
                 // Hash the password
-                String hashedPassword = hashPassword(pass);
+                String hashedPassword = GLOBAL.hashPassword(pass);
 
                 if (hashedPassword == null) {
                     Toast.makeText(SignupActivity.this, "Error hashing password", Toast.LENGTH_SHORT).show();
@@ -104,23 +104,7 @@ public class SignupActivity extends AppCompatActivity {
         return pattern.matcher(password).matches();
     }
 
-    private String hashPassword(String password) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hashedBytes = digest.digest(password.getBytes());
-            StringBuilder hexString = new StringBuilder();
 
-            for (byte b : hashedBytes) {
-                String hex = Integer.toHexString(0xff & b);
-                if (hex.length() == 1) hexString.append('0');
-                hexString.append(hex);
-            }
-            return hexString.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 
     private void AnimateUIElements(ImageView logo, EditText email, EditText password, EditText confirmPassword, Button signupButton, TextView alreadyHaveAccount) {
         // Animate logo

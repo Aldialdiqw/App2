@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_coordinator_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -18,29 +17,24 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_id_document"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="0dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="0dp"
-                android:backgroundTint="@color/teal"
-
+                android:layout_marginBottom="2dp"
+                android:background="?android:attr/colorBackground"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="4dp"
                 app:cardUseCompatPadding="true"
-                app:strokeColor="@android:color/white"
                 app:strokeWidth="2dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:padding="16dp">
-
 
                     <TextView
                         android:id="@+id/tv_id"
@@ -49,9 +43,9 @@
                         android:gravity="center"
                         android:paddingStart="8dp"
                         android:text=""
-                        android:textColor="@android:color/white"
                         android:textSize="18sp"
                         android:textStyle="bold"
+                        android:background="@android:color/transparent"
                         app:layout_constraintBottom_toBottomOf="@id/iv_emblem"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -69,12 +63,12 @@
 
                     <TextView
                         android:id="@+id/tv_id_title"
-                        android:layout_width="249dp"
-                        android:layout_height="34dp"
+                        android:layout_width="232dp"
+                        android:layout_height="37dp"
+                        android:fontFamily="@font/montserrat"
                         android:gravity="center"
                         android:paddingStart="8dp"
                         android:text="National Identity Card"
-                        android:textColor="@android:color/white"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@id/iv_emblem"
@@ -90,7 +84,7 @@
                         android:layout_height="84dp"
                         android:layout_marginTop="16dp"
                         android:contentDescription="Profile Picture"
-                        android:src="@drawable/person"
+                        android:src="@drawable/person_48px"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/iv_emblem"
@@ -109,9 +103,9 @@
                             android:id="@+id/tv_full_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat"
                             android:paddingTop="4dp"
                             android:text="John Doe"
-                            android:textColor="@android:color/white"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -119,45 +113,45 @@
                             android:id="@+id/tv_id_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat"
                             android:paddingTop="4dp"
                             android:text="ID Number: 123456789"
-                            android:textColor="@android:color/white"
                             android:textSize="14sp" />
 
                         <TextView
                             android:id="@+id/tv_birthdate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat"
                             android:paddingTop="4dp"
                             android:text="Birthdate: 01/01/1990"
-                            android:textColor="@android:color/white"
                             android:textSize="14sp" />
 
                         <TextView
                             android:id="@+id/tv_nationality"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat"
                             android:paddingTop="4dp"
                             android:text="Nationality: USA"
-                            android:textColor="@android:color/white"
                             android:textSize="14sp" />
 
                         <TextView
                             android:id="@+id/tv_gender"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat"
                             android:paddingTop="4dp"
                             android:text="Gender: Male"
-                            android:textColor="@android:color/white"
                             android:textSize="14sp" />
 
                         <TextView
                             android:id="@+id/tv_expiry_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat"
                             android:paddingTop="4dp"
                             android:text="Expiry Date: 01/01/2030"
-                            android:textColor="@android:color/white"
                             android:textSize="14sp" />
                     </LinearLayout>
 
@@ -171,13 +165,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="0dp"
-                android:backgroundTint="@color/teal"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="2dp"
+                android:background="?android:attr/colorBackground"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="4dp"
                 app:cardUseCompatPadding="true"
-                app:strokeColor="@android:color/white"
                 app:strokeWidth="2dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -189,9 +182,9 @@
                         android:id="@+id/tv_card_back_title"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat"
                         android:gravity="center"
                         android:text="ID Card - Back"
-                        android:textColor="@android:color/white"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -202,9 +195,9 @@
                         android:id="@+id/tv_date_of_issue_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat"
                         android:paddingTop="16dp"
                         android:text="Date of Issue:"
-                        android:textColor="@android:color/white"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_card_back_title" />
@@ -213,10 +206,10 @@
                         android:id="@+id/tv_date_of_issue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat"
                         android:paddingStart="8dp"
                         android:paddingTop="16dp"
                         android:text="01/01/2022"
-                        android:textColor="@android:color/white"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toEndOf="@id/tv_date_of_issue_label"
@@ -226,9 +219,9 @@
                         android:id="@+id/tv_issued_by_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat"
                         android:paddingTop="16dp"
                         android:text="Issued By:"
-                        android:textColor="@android:color/white"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_date_of_issue_label" />
@@ -237,10 +230,10 @@
                         android:id="@+id/tv_issued_by"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat"
                         android:paddingStart="8dp"
                         android:paddingTop="16dp"
                         android:text="Ministry of Internal Affairs"
-                        android:textColor="@android:color/white"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toEndOf="@id/tv_issued_by_label"
@@ -250,9 +243,9 @@
                         android:id="@+id/tv_card_id_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat"
                         android:paddingTop="16dp"
                         android:text="Card ID:"
-                        android:textColor="@android:color/white"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_issued_by_label" />
@@ -261,10 +254,10 @@
                         android:id="@+id/tv_card_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat"
                         android:paddingStart="8dp"
                         android:paddingTop="16dp"
                         android:text="1234-5678-9012"
-                        android:textColor="@android:color/white"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toEndOf="@id/tv_card_id_label"
@@ -274,9 +267,9 @@
                         android:id="@+id/tv_residence_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat"
                         android:paddingTop="16dp"
                         android:text="Residence:"
-                        android:textColor="@android:color/white"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_card_id_label" />
@@ -285,10 +278,10 @@
                         android:id="@+id/tv_residence"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat"
                         android:paddingStart="8dp"
                         android:paddingTop="16dp"
                         android:text="123 Main St, Capital City, Country"
-                        android:textColor="@android:color/white"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toEndOf="@id/tv_residence_label"
@@ -297,13 +290,11 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
-
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_delete_entry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-
                 android:text="Delete Entry" />
 
         </LinearLayout>

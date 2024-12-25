@@ -4,11 +4,9 @@ import android.app.ActionBar;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
-import android.view.WindowManager;
+
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -22,11 +20,11 @@ public class ResetPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.reset_password_page);
         GLOBAL.enableImmersiveMode(this);
 
-
         ActionBar actionBar = getActionBar();
         if (actionBar != null) {
             actionBar.hide();
         }
+
         EditText newPasswordInput = findViewById(R.id.new_password);
         EditText confirmPasswordInput = findViewById(R.id.confirm_password);
         Button btnReset = findViewById(R.id.btn_reset);
@@ -47,10 +45,16 @@ public class ResetPasswordActivity extends AppCompatActivity {
                 return;
             }
 
+            String hashedPassword = GLOBAL.hashPassword(newPassword);
+            if (hashedPassword == null) {
+                Toast.makeText(this, "Failed to hash password", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             DatabaseHelper db = new DatabaseHelper(this);
             SQLiteDatabase database = db.getWritableDatabase();
             ContentValues values = new ContentValues();
-            values.put(DatabaseHelper.COLUMN_PASSWORD, newPassword);
+            values.put(DatabaseHelper.COLUMN_PASSWORD, hashedPassword);
 
             int rows = database.update(DatabaseHelper.TABLE_NAME, values, DatabaseHelper.COLUMN_EMAIL + "=?", new String[]{email});
             if (rows > 0) {
@@ -64,5 +68,4 @@ public class ResetPasswordActivity extends AppCompatActivity {
             }
         });
     }
-
 }

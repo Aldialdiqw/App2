@@ -106,19 +106,19 @@ public class ForgotActivity extends AppCompatActivity {
         });
     }
 
-    private boolean sendEmail(String email, String verificationCode) {
+    protected boolean sendEmail(String email, String verificationCode) {
         try {
-            final String senderEmail = "aldi.keka@gmail.com";  // Your Gmail address
-            final String appPassword = "fqfu htve xroj bqwp";    // Your generated App Password
+            final String senderEmail = "aldi.keka@gmail.com";
+            final String appPassword = "fqfu htve xroj bqwp";
 
-            // Configure Gmail SMTP server settings
+
             Properties props = new Properties();
             props.put("mail.smtp.auth", "true");
             props.put("mail.smtp.starttls.enable", "true");
             props.put("mail.smtp.host", "smtp.gmail.com");
             props.put("mail.smtp.port", "587");
 
-            // Create a mail session
+
             Session session = Session.getInstance(props, new javax.mail.Authenticator() {
                 @Override
                 protected PasswordAuthentication getPasswordAuthentication() {
@@ -126,14 +126,14 @@ public class ForgotActivity extends AppCompatActivity {
                 }
             });
 
-            // Build the email message
+
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(senderEmail));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
             message.setSubject("Your Verification Code");
             message.setText("Your verification code is: " + verificationCode);
 
-            // Send the email
+
             Transport.send(message);
             return true;
 

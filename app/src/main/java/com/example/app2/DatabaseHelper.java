@@ -1,5 +1,6 @@
 package com.example.app2;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -22,13 +23,15 @@ import random.Random;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "data9.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final String DATABASE_NAME = "data10.db";
+    private static final int DATABASE_VERSION = 4;
 
     public static final String TABLE_NAME = "users";
     public static final String COLUMN_EMAIL = "email";
     public static final String COLUMN_PASSWORD = "password";
+    private static final String COLUMN_ID = "id";
 
+    private static final String COLUMN_FA2 = "FA2";
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -37,9 +40,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String CREATE_TABLE_USERS = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_EMAIL + " TEXT UNIQUE NOT NULL,"
-                + COLUMN_PASSWORD + " TEXT NOT NULL"
+                + COLUMN_PASSWORD + " TEXT NOT NULL,"
+                + "FA2 BOOLEAN DEFAULT FALSE"
                 + ")";
         db.execSQL(CREATE_TABLE_USERS);
+
 
         String CREATE_TABLE_CREDITCARD = "CREATE TABLE IF NOT EXISTS creditcard ("
                 + "credit_id INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -51,7 +56,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "FOREIGN KEY (user_id) REFERENCES users(id)"
                 + ")";
         db.execSQL(CREATE_TABLE_CREDITCARD);
-
 
         String CREATE_MEMBERSHIP_TABLE = "CREATE TABLE IF NOT EXISTS membership_new (" +
                 "m_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -115,7 +119,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public boolean insertUser(String email, String password) {
+
+    public boolean getFA2Status(int userId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT " + COLUMN_FA2 + " FROM " + TABLE_NAME + " WHERE " + COLUMN_ID + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(userId)});
+        boolean fa2Status = false;
+        if (cursor.moveToFirst()) {
+            fa2Status = cursor.getInt(0) == 1;
+        }
+        cursor.close();
+        return fa2Status;
+    }
+
+    public void updateFA2Status(int userId, boolean status) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_FA2, status ? 1 : 0);
+        db.update(TABLE_NAME, values, COLUMN_ID + " = ?", new String[]{String.valueOf(userId)});
+    }
+
+
+public boolean insertUser(String email, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
         if (!tableExists(db)) {
             Log.e("DB_ERROR", "Tabela nuk ekziston. Ndërpritje e inserimit.");
