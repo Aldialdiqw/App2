@@ -10,13 +10,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.app2.DatabaseHelper;
+import database.DatabaseHelper;
 import com.example.app2.GLOBAL;
-import com.example.app2.HomeActivity;
 import com.example.app2.R;
-
-import memberships.MembershipActivity;
-import memberships.MembershipManager;
 
 public class ServiceActivity extends AppCompatActivity {
     private EditText ServiceName, UserName, Password;

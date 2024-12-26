@@ -23,7 +23,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-
+import database.DatabaseHelper;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -56,8 +56,13 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(v -> {
             String user = email.getText().toString();
             String pass = password.getText().toString();
+
+
+
+
+
             Log.d("Debug", "Hashed Password during Login: " + GLOBAL.hashPassword(pass));
-            if (user.isEmpty() || pass.isEmpty()) {
+            if (user.isEmpty() || pass.isEmpty() ) {
                 Toast.makeText(LoginActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
             } else {
                 String hashedPassword = GLOBAL.hashPassword(pass);
@@ -90,7 +95,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
         forgotPassword.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, ForgotActivity.class);
             startActivity(intent);
@@ -106,10 +110,10 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("is_logged_in", true);
         editor.putString("user_email", user);
+
         editor.putInt("user_id", userId);
         editor.apply();
         Log.d("LoginActivity", "user: " + user);
-
 
         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
         startActivity(intent);
@@ -211,11 +215,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
+
     public void onBackPressed() {
         if (shouldAllowBack()) {
             super.onBackPressed();
         } else {
-
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);

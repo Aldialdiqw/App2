@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.example.app2.DatabaseHelper;
+import database.DatabaseHelper;
 import com.example.app2.R;
 
 import java.util.List;

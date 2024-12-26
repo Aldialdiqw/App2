@@ -1,29 +1,21 @@
 package memberships;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.app2.DatabaseHelper;
+import database.DatabaseHelper;
 import com.example.app2.GLOBAL;
 import com.example.app2.HomeActivity;
 import com.example.app2.R;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class MembershipManager extends AppCompatActivity {
@@ -70,12 +62,9 @@ public class MembershipManager extends AppCompatActivity {
     private void fetchMemberships(int userId) {
         memberships.clear();
         List<MembershipInfo> fetchedMemberships = databaseHelper.getAllMemberships(userId);
-
         if (fetchedMemberships != null && !fetchedMemberships.isEmpty()) {
             memberships.addAll(fetchedMemberships);
             adapter.notifyDataSetChanged();
-
-
         } else {
             Log.d(TAG, "No memberships found for user ID: " + userId);
         }

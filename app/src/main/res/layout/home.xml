@@ -23,9 +23,11 @@
             android:background="?android:attr/colorBackground"
             android:fontFamily="@font/montserrat"
             android:textSize="28sp"
+
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="#E1BEE7"/>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardWallet"
@@ -76,18 +78,19 @@
                         <com.google.android.material.card.MaterialCardView
                             android:layout_width="64dp"
                             android:layout_height="64dp"
-                            android:background="?android:attr/colorBackground"
+                            android:background="#E1BEE7"
                             app:cardCornerRadius="16dp"
                             app:cardElevation="4dp">
 
+
                             <ImageView
                                 android:id="@+id/cards"
-                                android:layout_width="40dp"
+                                android:layout_width="35dp"
                                 android:layout_height="40dp"
                                 android:layout_gravity="center"
                                 android:contentDescription="Credit/debit cards"
                                 android:src="@drawable/credit_card"
-                                app:tint="@android:color/white" />
+                                app:tint="#E1BEE7" />
                         </com.google.android.material.card.MaterialCardView>
 
                         <TextView
@@ -99,7 +102,7 @@
                             android:textSize="12sp" />
                     </LinearLayout>
 
-                    <!-- Memberships -->
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -111,7 +114,7 @@
                         <com.google.android.material.card.MaterialCardView
                             android:layout_width="64dp"
                             android:layout_height="64dp"
-                            android:background="?android:attr/colorBackground"
+                            android:background="#E1BEE7"
                             app:cardCornerRadius="16dp"
                             app:cardElevation="4dp">
 
@@ -122,7 +125,7 @@
                                 android:layout_gravity="center"
                                 android:contentDescription="Memberships"
                                 android:src="@drawable/membership"
-                                app:tint="@android:color/white" />
+                                app:tint="#E1BEE7" />
                         </com.google.android.material.card.MaterialCardView>
 
                         <TextView
@@ -141,14 +144,16 @@
                         android:layout_columnWeight="1"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:layout_marginBottom="16dp">
+                        android:layout_marginBottom="16dp"
+                        >
 
                         <com.google.android.material.card.MaterialCardView
                             android:layout_width="64dp"
                             android:layout_height="64dp"
-                            android:background="?android:attr/colorBackground"
+                            android:background="#E1BEE7"
                             app:cardCornerRadius="16dp"
-                            app:cardElevation="4dp">
+                            app:cardElevation="4dp"
+                            app:tint="#E1BEE7">
 
                             <ImageView
                                 android:id="@+id/Secure_Notes"
@@ -157,7 +162,7 @@
                                 android:layout_gravity="center"
                                 android:contentDescription="Vouchers"
                                 android:src="@drawable/vouchers"
-                                app:tint="@android:color/white" />
+                                app:tint="#E1BEE7" />
                         </com.google.android.material.card.MaterialCardView>
 
                         <TextView
@@ -192,7 +197,7 @@
                                 android:layout_gravity="center"
                                 android:contentDescription="Pass"
                                 android:src="@drawable/password"
-                                app:tint="@android:color/white" />
+                                app:tint="#E1BEE7" />
                         </com.google.android.material.card.MaterialCardView>
 
                         <TextView
@@ -227,7 +232,7 @@
                                 android:layout_gravity="center"
                                 android:contentDescription="Personal id"
                                 android:src="@drawable/id_card"
-                                app:tint="@android:color/white" />
+                                app:tint="#E1BEE7" />
                         </com.google.android.material.card.MaterialCardView>
 
                         <TextView
@@ -262,7 +267,7 @@
                                 android:layout_gravity="center"
                                 android:contentDescription="Other"
                                 android:src="@drawable/other"
-                                app:tint="@android:color/white" />
+                                app:tint="#E1BEE7" />
                         </com.google.android.material.card.MaterialCardView>
 
                         <TextView

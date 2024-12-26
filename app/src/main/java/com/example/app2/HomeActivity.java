@@ -21,10 +21,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import SecureNotes.SecureNotesActivity;
 import creditcard.CreditCardActivity;
+import database.DatabaseHelper;
 import memberships.MembershipAdapter;
 import memberships.MembershipInfo;
 import memberships.MembershipManager;
@@ -33,16 +35,11 @@ import personal_id.PersonalIdActivity;
 import random.RandomActivity;
 
 public class HomeActivity extends AppCompatActivity {
-    private ImageView creditcard;
-    private ImageView memberships;
-    private ImageView Securenotes;
-    private ImageView passwords;
-    private ImageView personal_id;
-    private ImageView other;
+    private static final String TAG = "HomeActivity";
+    private ImageView creditcard, memberships, Securenotes, passwords, personal_id, other;
+    private Button FA2;
     private List<MembershipInfo> membership;
     private DatabaseHelper dbHelper;
-    private static final String TAG = "HomeActivity";
-    private Button FA2;
     private SharedPreferences sharedPreferences;
     private MembershipAdapter adapter;
     private Set<Integer> notifiedMemberships;
@@ -51,17 +48,14 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
-        GLOBAL.enableImmersiveMode(this);
 
         sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE);
-        membership = new ArrayList<>();
         dbHelper = new DatabaseHelper(this);
+        membership = new ArrayList<>();
         adapter = new MembershipAdapter(membership, dbHelper);
-
-        // Load notified memberships from SharedPreferences
         notifiedMemberships = loadNotifiedMemberships();
+        GLOBAL.enableImmersiveMode(this);
 
-        // Initialize UI elements
         creditcard = findViewById(R.id.cards);
         memberships = findViewById(R.id.memberships);
         Securenotes = findViewById(R.id.Secure_Notes);
@@ -71,15 +65,11 @@ public class HomeActivity extends AppCompatActivity {
         FA2 = findViewById(R.id.FA2);
 
         setImageViewClickListeners();
-
         FA2.setOnClickListener(v -> toggleFA2());
-
-        Button logoutButton = findViewById(R.id.btn_logout);
-        logoutButton.setOnClickListener(v -> logout());
-
+        findViewById(R.id.btn_logout).setOnClickListener(v -> logout());
         updateFA2ButtonText();
-        int userId = sharedPreferences.getInt("user_id", -1);
 
+        int userId = sharedPreferences.getInt("user_id", -1);
         if (userId != -1) {
             fetchMemberships(userId);
         } else {
@@ -90,14 +80,40 @@ public class HomeActivity extends AppCompatActivity {
     private void fetchMemberships(int userId) {
         membership.clear();
         List<MembershipInfo> fetchedMemberships = dbHelper.getAllMemberships(userId);
-
         if (fetchedMemberships != null) {
             membership.addAll(fetchedMemberships);
             for (MembershipInfo membership : fetchedMemberships) {
+                updatePaymentDueDateIfNeeded(membership);
                 scheduleNotification(membership);
             }
         } else {
             Log.e(TAG, "No memberships found for this user.");
+        }
+    }
+
+    public void updatePaymentDueDateIfNeeded(MembershipInfo membership) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
+            Date paymentDueDate = sdf.parse(membership.getPaymentDate());
+            Calendar currentDate = Calendar.getInstance();
+
+            if (paymentDueDate != null) {
+                Calendar paymentCalendar = Calendar.getInstance();
+                paymentCalendar.setTime(paymentDueDate);
+                paymentCalendar.add(Calendar.DAY_OF_MONTH, 1);
+
+                if (currentDate.get(Calendar.YEAR) == paymentCalendar.get(Calendar.YEAR)
+                        && currentDate.get(Calendar.DAY_OF_YEAR) == paymentCalendar.get(Calendar.DAY_OF_YEAR)) {
+                    paymentCalendar.add(Calendar.DAY_OF_MONTH, -1); // Reset to original date
+                    paymentCalendar.add(Calendar.MONTH, 1);
+                    String newDate = sdf.format(paymentCalendar.getTime());
+                    membership.setPaymentDate(newDate);
+                    dbHelper.updateMembershipPaymentDate(membership.getId(), newDate);
+                    Log.d(TAG, "Payment due date updated to: " + newDate);
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error updating payment due date for " + membership.getName(), e);
         }
     }
 
@@ -130,12 +146,12 @@ public class HomeActivity extends AppCompatActivity {
             }
 
             notifiedMemberships.add(membership.getId());
+
             saveNotifiedMemberships();
         } catch (Exception e) {
             Log.e(TAG, "Error scheduling notification for " + membership.getName(), e);
         }
     }
-
     public void scheduleExactAlarm(AlarmManager alarmManager, Calendar calendar, MembershipInfo membership) {
         Intent intent = new Intent(this, NotificationReceiver.class);
         intent.putExtra("membership_name", membership.getName());
@@ -154,13 +170,8 @@ public class HomeActivity extends AppCompatActivity {
     private void logout() {
         notifiedMemberships.clear();
         saveNotifiedMemberships();
-
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();
-        editor.apply();
-
-        Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-        startActivity(intent);
+        sharedPreferences.edit().clear().apply();
+        startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
 
@@ -183,31 +194,13 @@ public class HomeActivity extends AppCompatActivity {
         return integerSet;
     }
 
-    private void setImageViewClickListeners() {
-        creditcard.setOnClickListener(v -> startActivity(CreditCardActivity.class));
-        memberships.setOnClickListener(v -> startActivity(MembershipManager.class));
-        passwords.setOnClickListener(v -> startActivity(ServiceManager.class));
-        Securenotes.setOnClickListener(v -> startActivity(SecureNotesActivity.class));
-        personal_id.setOnClickListener(v -> startActivity(PersonalIdActivity.class));
-        other.setOnClickListener(v -> startActivity(RandomActivity.class));
-    }
-
-    private void startActivity(Class<?> cls) {
-        Intent intent = new Intent(HomeActivity.this, cls);
-        startActivity(intent);
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-        finish();
-        Log.d("HomeActivity", "Starting " + cls.getSimpleName());
-    }
-
     private void toggleFA2() {
         int userId = sharedPreferences.getInt("user_id", -1);
         if (userId != -1) {
             boolean currentFA2Status = dbHelper.getFA2Status(userId);
-            boolean newFA2Status = !currentFA2Status;
-            dbHelper.updateFA2Status(userId, newFA2Status);
+            dbHelper.updateFA2Status(userId, !currentFA2Status);
             updateFA2ButtonText();
-            Toast.makeText(this, "2FA " + (newFA2Status ? "enabled" : "disabled"), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "2FA " + (!currentFA2Status ? "enabled" : "disabled"), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "User not found", Toast.LENGTH_SHORT).show();
         }
@@ -220,17 +213,31 @@ public class HomeActivity extends AppCompatActivity {
             FA2.setText(fa2Status ? "Disable 2FA" : "Enable 2FA");
         }
     }
-
-    @Override
     public void onBackPressed() {
         if (shouldAllowBack()) {
             super.onBackPressed();
         } else {
-            // Do nothing
+
         }
     }
 
     private boolean shouldAllowBack() {
         return false;
     }
+
+    private void setImageViewClickListeners() {
+        creditcard.setOnClickListener(v -> startActivity(CreditCardActivity.class));
+        memberships.setOnClickListener(v -> startActivity(MembershipManager.class));
+        passwords.setOnClickListener(v -> startActivity(ServiceManager.class));
+        Securenotes.setOnClickListener(v -> startActivity(SecureNotesActivity.class));
+        personal_id.setOnClickListener(v -> startActivity(PersonalIdActivity.class));
+        other.setOnClickListener(v -> startActivity(RandomActivity.class));
+    }
+    private void startActivity(Class<?> activityClass) {
+        Intent intent = new Intent(HomeActivity.this, activityClass);
+        startActivity(intent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        Log.d(TAG, "Starting " + activityClass.getSimpleName());
+    }
+
 }

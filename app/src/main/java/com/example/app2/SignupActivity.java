@@ -1,20 +1,5 @@
 package com.example.app2;
 
-import android.app.ActionBar;
-import android.content.Intent;
-import android.os.Build;
-import android.os.Bundle;
-import android.util.Patterns;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -26,9 +11,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.regex.Pattern;
+
+import database.DatabaseHelper;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -45,6 +30,7 @@ public class SignupActivity extends AppCompatActivity {
         ImageView logo = findViewById(R.id.logo);
         EditText email = findViewById(R.id.email);
         EditText password = findViewById(R.id.password);
+
         EditText confirmPassword = findViewById(R.id.confirm_password);
         Button signupButton = findViewById(R.id.btn_signup);
         TextView alreadyHaveAccount = findViewById(R.id.already_have_account);

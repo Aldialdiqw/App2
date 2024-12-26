@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.app2.DatabaseHelper;
+import database.DatabaseHelper;
 import com.example.app2.GLOBAL;
 import com.example.app2.R;
 

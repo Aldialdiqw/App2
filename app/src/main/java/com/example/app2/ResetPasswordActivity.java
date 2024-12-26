@@ -1,6 +1,5 @@
 package com.example.app2;
 
-import android.app.ActionBar;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,6 +11,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import database.DatabaseHelper;
 
 public class ResetPasswordActivity extends AppCompatActivity {
     private static final String TAG = "ResetPasswordActivity";

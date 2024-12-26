@@ -9,15 +9,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.app2.DatabaseHelper;
+import database.DatabaseHelper;
 import com.example.app2.GLOBAL;
 import com.example.app2.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import passwords.ServiceActivity;
-import passwords.ServiceManager;
 
 public class MembershipActivity extends AppCompatActivity {
     private EditText etMembershipName, etCompanyName, etPrice, etPaymentDate;

@@ -2,24 +2,22 @@ package com.example.app2;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.app.ActionBar;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+
+import database.CryptoUtils;
+import database.DatabaseHelper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,7 +33,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         GLOBAL.enableImmersiveMode(this);
-
+        try {
+            CryptoUtils.generateKey();
+        } catch (Exception e) {
+            Log.e("CryptoUtils", "Failed to generate encryption key during app startup", e);
+        }
 
         btnSignup = findViewById(R.id.btn_signup);
         btnLogin = findViewById(R.id.btn_login);

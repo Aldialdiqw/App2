@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import database.DatabaseHelper;
+
 public class TwoFactorAuthActivity extends AppCompatActivity {
 
     private EditText verificationCodeInput;
